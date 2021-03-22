@@ -1,0 +1,2 @@
+# next-crud
+next-crud
