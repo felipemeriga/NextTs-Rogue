@@ -1,28 +1,22 @@
 import Link from 'next/link';
+import {ICustomer} from "../interfaces";
 
-type Props = {
-    id?: string,
-    firstName?: string,
-    lastName?: string,
-    telephone?: string,
-    creditCard?: string,
-    loading?: boolean,
+interface IProps {
+    data: ICustomer;
 }
 
-const DataRow = ({id, firstName, lastName, telephone, creditCard, loading}: Props) => (
-    <>
-        <div className="dataRow">
-            <p className={loading ? 'loading' : ''}>
-                <Link href="/customers/[id]" as={`/customers/${id}`}>
-                    <a>
-                        {firstName} {lastName}
-                    </a>
-                </Link>
-            </p>
-            <p className={`num ${loading ? 'loading' : ''}`}>{telephone}</p>
-            <p className={`creditCard num ${loading ? 'loading' : ''}`}>{creditCard}</p>
-        </div>
-    </>
+const DataRow = ({data}: IProps) => (
+    <div className="dataRow">
+        <p>
+            <Link href="/customers/[id]" as={`/customers/${data.id}`}>
+                <a>
+                    {data.firstName} {data.lastName}
+                </a>
+            </Link>
+        </p>
+        <p className={`num`}>{data.telephone}</p>
+        <p className={`creditCard`}>{data.creditCard}</p>
+    </div>
 )
 
 export default DataRow

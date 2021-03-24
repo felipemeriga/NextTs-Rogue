@@ -2,6 +2,10 @@ import Link from 'next/link'
 import Layout from '../components/Layout'
 import {connect} from "react-redux";
 import * as React from "react";
+import ReactLoading from 'react-loading';
+import DataRow from "../components/DataRow";
+import {ICustomer} from "../interfaces";
+import {sampleCustomerData} from "../utils/sample-data";
 
 interface IProps {
 }
@@ -21,6 +25,8 @@ class App extends React.Component<Props> {
     }
 
     render() {
+        const mockData: ICustomer[] = sampleCustomerData;
+
         return (
             <Layout>
                 <h1>Next Fauna CRUD</h1>
@@ -28,7 +34,6 @@ class App extends React.Component<Props> {
                 <Link href="/customers/create">
                     <a className="createNew">Create New Customer</a>
                 </Link>
-
                 <div className="table">
                     <h2>Customer Data</h2>
                     <div className="headerRow">
@@ -37,7 +42,17 @@ class App extends React.Component<Props> {
                         <h4 className="creditCard">credit card</h4>
                     </div>
                 </div>
-
+                {
+                    mockData ? (
+                        mockData.map((costumer) => (
+                            <DataRow data={costumer} key={costumer.id}/>
+                        ))
+                    ) : (
+                        <div className="loading">
+                            <ReactLoading type={"spin"} color={"#0073ff"}/>
+                        </div>
+                    )
+                }
             </Layout>
         );
     }

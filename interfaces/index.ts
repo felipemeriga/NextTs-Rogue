@@ -4,7 +4,10 @@
 //
 // import { User } from 'path/to/interfaces';
 
-export type User = {
-  id: number
-  name: string
+export type ICustomer = {
+  id: string;
+  firstName?: string,
+  lastName?: string,
+  telephone?: string,
+  creditCard?: string,
 }

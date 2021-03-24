@@ -88,13 +88,12 @@ h4 {
         background-position: 0% 50%;
     }
 }
-.loading {
-    animation: Loading 2s ease infinite;
-    background: linear-gradient(270deg, #d1d1d1, #eaeaea);
-    background-size: 200% 200%;
-    height: 16px;
-    width: 80%;
-}
+
 .num {
     font-family: Roboto, 'Open Sans';
+}
+
+.loading {
+    display: flex;
+    justify-content: center;
 }
