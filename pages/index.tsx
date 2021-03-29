@@ -1,11 +1,11 @@
 import Link from 'next/link'
 import Layout from '../components/Layout'
-import {connect} from "react-redux";
-import * as React from "react";
+import * as React from "react"
 import ReactLoading from 'react-loading';
-import DataRow from "../components/DataRow";
-import {ICustomer} from "../interfaces";
+import DataRow from "../components/DataRow"
+import {ICustomer} from "../interfaces"
 import {sampleCustomerData} from "../utils/sample-data";
+import {getCustomers} from "../services/fetch";
 
 interface IProps {
 }
@@ -21,17 +21,22 @@ type Props = IProps & IState & IDispatchProps
 class App extends React.Component<Props> {
 
     constructor(props: Props) {
-        super(props);
+        super(props)
+    }
+
+    async componentWillMount() {
+        const result = await getCustomers()
+        console.log(result)
     }
 
     render() {
-        const mockData: ICustomer[] = sampleCustomerData;
+        const mockData: ICustomer[] = sampleCustomerData
 
         return (
             <Layout>
                 <h1>Next Fauna CRUD</h1>
 
-                <Link href="/customers/create">
+                <Link href={"/customers/create"}>
                     <a className="createNew">Create New Customer</a>
                 </Link>
                 <div className="table">
@@ -58,4 +63,4 @@ class App extends React.Component<Props> {
     }
 }
 
-export default connect(null, null)(App);
+export default App

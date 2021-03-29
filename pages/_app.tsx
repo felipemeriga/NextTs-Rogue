@@ -1,7 +1,6 @@
 // pages/_app.js
 import React from 'react'
 import App from 'next/app';
-import wrapper from "../store";
 import '../styles.css';
 
 // For default you don't need to edit _app.tsx, but if you want to wrapper the pages with redux wrapper, you need
@@ -26,4 +25,4 @@ class MyApp extends App {
 
 }
 
-export default wrapper.withRedux(MyApp);
+export default MyApp;
