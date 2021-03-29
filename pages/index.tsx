@@ -1,32 +1,15 @@
 import Link from 'next/link'
 import Layout from '../components/Layout'
 import * as React from "react"
-import ReactLoading from 'react-loading';
+import ReactLoading from 'react-loading'
 import DataRow from "../components/DataRow"
 import {ICustomer} from "../interfaces"
-import {sampleCustomerData} from "../utils/sample-data";
-import {getCustomers} from "../services/fetch";
+import {sampleCustomerData} from "../utils/sample-data"
 
-interface IProps {
-}
+class App extends React.Component {
 
-interface IState {
-}
-
-interface IDispatchProps {
-}
-
-type Props = IProps & IState & IDispatchProps
-
-class App extends React.Component<Props> {
-
-    constructor(props: Props) {
+    constructor(props: never) {
         super(props)
-    }
-
-    async componentWillMount() {
-        const result = await getCustomers()
-        console.log(result)
     }
 
     render() {
@@ -59,7 +42,7 @@ class App extends React.Component<Props> {
                     )
                 }
             </Layout>
-        );
+        )
     }
 }
 

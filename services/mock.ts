@@ -1,6 +1,6 @@
-import MockAdapter from "axios-mock-adapter";
-import {sampleCustomerData} from "../utils/sample-data";
-import {AxiosInstance} from "axios";
+import MockAdapter from "axios-mock-adapter"
+import {sampleCustomerData} from "../utils/sample-data"
+import {AxiosInstance} from "axios"
 
 
 

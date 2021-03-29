@@ -2,12 +2,12 @@
 // and then use them in any component by importing them. For
 // example, to import the interface below do:
 //
-// import { User } from 'path/to/interfaces';
+// import { User } from 'path/to/interfaces'
 
 export type ICustomer = {
-  id: string;
-  firstName?: string,
-  lastName?: string,
-  telephone?: string,
-  creditCard?: string,
+  id: string
+  firstName?: string
+  lastName?: string
+  telephone?: string
+  creditCard?: string
 }

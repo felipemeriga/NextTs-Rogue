@@ -1,7 +1,7 @@
-import axios, {AxiosInstance, AxiosRequestConfig} from "axios";
-import {ICustomer} from "../interfaces";
-import {MOCK_ON} from "../utils/constants";
-import {initMock} from "./mock";
+import axios, {AxiosInstance, AxiosRequestConfig} from "axios"
+import {ICustomer} from "../interfaces"
+import {MOCK_ON} from "../utils/constants"
+import {initMock} from "./mock"
 
 let axiosInstance: AxiosInstance
 

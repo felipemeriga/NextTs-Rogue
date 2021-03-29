@@ -1,19 +1,19 @@
-import React, {useState} from "react";
-import Layout from "../../components/Layout";
-import {ICustomer} from "../../interfaces";
-import {useForm} from "react-hook-form";
+import React, {useState} from "react"
+import Layout from "../../components/Layout"
+import {ICustomer} from "../../interfaces"
+import {useForm} from "react-hook-form"
 
 
 
 const Create = () => {
     const [errorMessage, setErrorMessage] = useState<string>('')
 
-    const { handleSubmit, register, errors } = useForm<ICustomer>();
+    const { handleSubmit, register, errors } = useForm<ICustomer>()
 
     const onSubmit = handleSubmit(async (formData: ICustomer) => {
-        if (errorMessage) setErrorMessage('');
+        if (errorMessage) setErrorMessage('')
         console.log(formData)
-    });
+    })
 
     return (
         <Layout>
@@ -95,7 +95,7 @@ const Create = () => {
 
 
         </Layout>
-    );
-};
+    )
+}
 
-export default Create;
+export default Create

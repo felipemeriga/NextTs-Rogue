@@ -1,14 +1,14 @@
-import Link from 'next/link';
-import {ICustomer} from "../interfaces";
+import Link from 'next/link'
+import {ICustomer} from "../interfaces"
 
 interface IProps {
-    data: ICustomer;
+    data: ICustomer
 }
 
 const DataRow = ({data}: IProps) => (
     <div className="dataRow">
         <p>
-            <Link href="/customers/[id]" as={`/customers/${data.id}`}>
+            <Link href={"/customers/[id]"} as={`/customers/${data.id}`}>
                 <a>
                     {data.firstName} {data.lastName}
                 </a>
