@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from 'react-query'
-import { createCustomer, getCustomers } from '../services/fetch'
+import { createCustomer, getCustomer, getCustomers } from '../services/fetch'
 import { ICustomer } from '../interfaces'
 import { UseQueryResult } from 'react-query/types/react/types'
 
@@ -10,4 +10,10 @@ export function useCustomers(): UseQueryResult {
 export function useMutationCreateCustomer() {
     // @ts-ignore
     return useMutation('customer', (data: ICustomer) => createCustomer(data))
+}
+
+export function useCustomer(id: string): UseQueryResult {
+    return useQuery(['customer', id], () => getCustomer(id), {
+        enabled: !!id,
+    })
 }

@@ -6,17 +6,19 @@ type Props = {
     title?: string
 }
 
-const Layout = ({ children }: Props) => (
-    <>
-        <Head>
-            <title>Next Fauna CRUD</title>
-            <link rel="icon" href="/favicon.ico" />
-        </Head>
+function Layout({ children }: Props) {
+    return (
+        <>
+            <Head>
+                <title>Next Fauna CRUD</title>
+                <link rel="icon" href="/favicon.ico" />
+            </Head>
 
-        <main>
-            <div className="container">{children}</div>
-        </main>
-    </>
-)
+            <main>
+                <div className="container">{children}</div>
+            </main>
+        </>
+    )
+}
 
 export default Layout

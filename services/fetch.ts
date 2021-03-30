@@ -34,3 +34,8 @@ export async function getCustomers(): Promise<ICustomer[]> {
 export async function createCustomer(customer: ICustomer): Promise<AxiosResponse> {
     return await getAxiosInstance().post('/customers', customer)
 }
+
+export async function getCustomer(id: string): Promise<ICustomer> {
+    const { data } = await getAxiosInstance().get(`/customers/${id}`)
+    return data
+}
