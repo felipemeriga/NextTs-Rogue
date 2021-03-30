@@ -2,9 +2,11 @@
 import React from 'react'
 import App from 'next/app'
 import '../styles.css'
+import { QueryClient, QueryClientProvider } from 'react-query'
+import { Hydrate } from 'react-query/hydration'
 
-// For default you don't need to edit _app.tsx, but if you want to wrapper the pages with redux wrapper, you need
-// to override _app.tsx with this code bellow
+const queryClient = new QueryClient()
+
 class MyApp extends App {
     // @ts-ignore
     static async getInitialProps({ Component, ctx }) {
@@ -18,7 +20,13 @@ class MyApp extends App {
 
     render() {
         const { Component, pageProps } = this.props
-        return <Component {...pageProps} />
+        return (
+            <QueryClientProvider client={queryClient}>
+                <Hydrate state={pageProps.dehydratedState}>
+                    <Component {...pageProps} />
+                </Hydrate>
+            </QueryClientProvider>
+        )
     }
 }
 

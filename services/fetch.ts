@@ -1,4 +1,4 @@
-import axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
+import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios'
 import { ICustomer } from '../interfaces'
 import { MOCK_ON } from '../utils/constants'
 import { initMock } from './mock'
@@ -27,5 +27,11 @@ export function getAxiosInstance(): AxiosInstance {
 }
 
 export async function getCustomers(): Promise<ICustomer[]> {
-    return await getAxiosInstance().get('/customers')
+    const { data } = await getAxiosInstance().get('/customers')
+    return data
+}
+
+export async function createCustomer(customer: ICustomer): Promise<AxiosResponse> {
+    debugger;
+    return await getAxiosInstance().post('/customers', customer)
 }
