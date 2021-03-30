@@ -2,20 +2,26 @@ import React, { useState } from 'react'
 import Layout from '../../components/Layout'
 import { ICustomer } from '../../interfaces'
 import { useForm } from 'react-hook-form'
-import { useMutationCustomer } from '../../hooks/hooks'
+import { useMutationCreateCustomer } from '../../hooks/hooks'
 import ReactLoading from 'react-loading'
+import { useRouter } from 'next/router'
 
 const Create = () => {
     const [errorMessage, setErrorMessage] = useState<string>('')
+    const router = useRouter()
 
     const { handleSubmit, register, errors } = useForm<ICustomer>()
 
-    const mutation = useMutationCustomer()
+    const mutation = useMutationCreateCustomer()
 
     const onSubmit = handleSubmit(async (formData: ICustomer) => {
         if (errorMessage) setErrorMessage('')
         mutation.mutate(formData)
     })
+
+    if (mutation.isSuccess) {
+        router.push('/')
+    }
 
     return (
         <Layout>
@@ -77,7 +83,7 @@ const Create = () => {
                             <label>Credit Card Number</label>
                             <input
                                 type="text"
-                                name="creditCardNumber"
+                                name="creditCard"
                                 placeholder="e.g. 1234567890123456"
                                 ref={register}
                             />

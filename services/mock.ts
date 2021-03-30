@@ -8,6 +8,7 @@ export function initMock(axiosIntance: AxiosInstance) {
     mock.onGet('/customers').reply(200, sampleCustomerData)
     mock.onPost('/customers').reply(function (config) {
         const data: ICustomer = JSON.parse(config.data)
+        data.id = String(Math.floor(Math.random() * 100 + 6))
         sampleCustomerData.push(data)
         return [200, 'response']
     })

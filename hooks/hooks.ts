@@ -7,7 +7,7 @@ export function useCustomers(): UseQueryResult {
     return useQuery('customers', getCustomers)
 }
 
-export function useMutationCustomer() {
+export function useMutationCreateCustomer() {
     // @ts-ignore
     return useMutation('customer', (data: ICustomer) => createCustomer(data))
 }
