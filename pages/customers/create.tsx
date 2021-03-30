@@ -1,9 +1,7 @@
-import React, {useState} from "react"
-import Layout from "../../components/Layout"
-import {ICustomer} from "../../interfaces"
-import {useForm} from "react-hook-form"
-
-
+import React, { useState } from 'react'
+import Layout from '../../components/Layout'
+import { ICustomer } from '../../interfaces'
+import { useForm } from 'react-hook-form'
 
 const Create = () => {
     const [errorMessage, setErrorMessage] = useState<string>('')
@@ -30,8 +28,8 @@ const Create = () => {
                     />
                     {errors.firstName && (
                         <span role="alert" className="error">
-              {errors.firstName.message}
-            </span>
+                            {errors.firstName.message}
+                        </span>
                     )}
                 </div>
 
@@ -45,8 +43,8 @@ const Create = () => {
                     />
                     {errors.lastName && (
                         <span role="alert" className="error">
-              {errors.lastName.message}
-            </span>
+                            {errors.lastName.message}
+                        </span>
                     )}
                 </div>
 
@@ -60,8 +58,8 @@ const Create = () => {
                     />
                     {errors.telephone && (
                         <span role="alert" className="error">
-              {errors.telephone.message}
-            </span>
+                            {errors.telephone.message}
+                        </span>
                     )}
                 </div>
 
@@ -75,8 +73,8 @@ const Create = () => {
                     />
                     {errors.creditCard && (
                         <span role="alert" className="error">
-              {errors.creditCard.message}
-            </span>
+                            {errors.creditCard.message}
+                        </span>
                     )}
                 </div>
 
@@ -92,8 +90,6 @@ const Create = () => {
                     {errorMessage}
                 </p>
             )}
-
-
         </Layout>
     )
 }
