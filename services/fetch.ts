@@ -32,6 +32,5 @@ export async function getCustomers(): Promise<ICustomer[]> {
 }
 
 export async function createCustomer(customer: ICustomer): Promise<AxiosResponse> {
-    debugger;
     return await getAxiosInstance().post('/customers', customer)
 }

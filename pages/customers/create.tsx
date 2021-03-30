@@ -1,20 +1,19 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import Layout from '../../components/Layout'
-import {ICustomer} from '../../interfaces'
-import {useForm} from 'react-hook-form'
-import {useMutationCustomer} from '../../hooks/hooks'
-import ReactLoading from "react-loading";
+import { ICustomer } from '../../interfaces'
+import { useForm } from 'react-hook-form'
+import { useMutationCustomer } from '../../hooks/hooks'
+import ReactLoading from 'react-loading'
 
 const Create = () => {
     const [errorMessage, setErrorMessage] = useState<string>('')
 
-    const {handleSubmit, register, errors} = useForm<ICustomer>()
+    const { handleSubmit, register, errors } = useForm<ICustomer>()
 
     const mutation = useMutationCustomer()
 
     const onSubmit = handleSubmit(async (formData: ICustomer) => {
         if (errorMessage) setErrorMessage('')
-        debugger
         mutation.mutate(formData)
     })
 
@@ -35,7 +34,7 @@ const Create = () => {
                                 type="text"
                                 name="firstName"
                                 placeholder="e.g. John"
-                                ref={register({required: 'First Name is required'})}
+                                ref={register({ required: 'First Name is required' })}
                             />
                             {errors.firstName && (
                                 <span role="alert" className="error">
@@ -50,7 +49,7 @@ const Create = () => {
                                 type="text"
                                 name="lastName"
                                 placeholder="e.g. Doe"
-                                ref={register({required: 'Last Name is required'})}
+                                ref={register({ required: 'Last Name is required' })}
                             />
                             {errors.lastName && (
                                 <span role="alert" className="error">
