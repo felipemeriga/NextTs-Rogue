@@ -4,7 +4,7 @@ import Layout from '../../../components/Layout'
 import Link from 'next/link'
 import { useCustomer, useMutationDeleteCustomer } from '../../../hooks/hooks'
 import { ICustomer } from '../../../interfaces'
-import ReactLoading from 'react-loading'
+import Loading from '../../../components/Loading'
 
 function Customer() {
     const router = useRouter()
@@ -47,9 +47,7 @@ function Customer() {
                     </div>
                 </div>
             ) : (
-                <div className="loading">
-                    <ReactLoading type={'spin'} color={'#0073ff'} />
-                </div>
+                <Loading />
             )}
         </Layout>
     )

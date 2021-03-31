@@ -3,8 +3,8 @@ import Layout from '../../components/Layout'
 import { ICustomer } from '../../interfaces'
 import { useForm } from 'react-hook-form'
 import { useMutationCreateCustomer } from '../../hooks/hooks'
-import ReactLoading from 'react-loading'
 import { useRouter } from 'next/router'
+import Loading from '../../components/Loading'
 
 const Create = () => {
     const [errorMessage, setErrorMessage] = useState<string>('')
@@ -28,9 +28,7 @@ const Create = () => {
             <h1>Create Customer</h1>
 
             {mutation.isLoading ? (
-                <div className="loading">
-                    <ReactLoading type={'spin'} color={'#0073ff'} />
-                </div>
+                <Loading />
             ) : (
                 <div>
                     <form onSubmit={onSubmit}>

@@ -29,13 +29,11 @@ export function initMock(axiosIntance: AxiosInstance) {
 
     mock.onDelete(url).reply(function (config) {
         if (config.url) {
-            debugger
             const id = config.url.substring(config.url.lastIndexOf('/') + 1)
             const index: number = sampleCustomerData.findIndex(
                 (value: ICustomer) => value.id === id
             )
             sampleCustomerData.splice(index, 1)
-            debugger
             return [200, 'response']
         } else {
             return [500, 'response']
@@ -44,12 +42,11 @@ export function initMock(axiosIntance: AxiosInstance) {
 
     mock.onPut(url).reply(function (config) {
         const data: ICustomer = JSON.parse(config.data)
-        debugger
+
         const index: number = sampleCustomerData.findIndex(
             (value: ICustomer) => value.id === data.id
         )
         sampleCustomerData[index] = data
-        debugger
         return [200, data]
     })
 }

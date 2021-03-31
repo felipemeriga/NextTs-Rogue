@@ -1,10 +1,10 @@
 import Link from 'next/link'
 import Layout from '../components/Layout'
 import * as React from 'react'
-import ReactLoading from 'react-loading'
 import DataRow from '../components/DataRow'
 import { useCustomers } from '../hooks/hooks'
 import { ICustomer } from '../interfaces'
+import Loading from '../components/Loading'
 
 function App() {
     const { data } = useCustomers()
@@ -28,9 +28,7 @@ function App() {
             {data ? (
                 rowData.map((costumer: ICustomer) => <DataRow data={costumer} key={costumer.id} />)
             ) : (
-                <div className="loading">
-                    <ReactLoading type={'spin'} color={'#0073ff'} />
-                </div>
+                <Loading />
             )}
         </Layout>
     )
