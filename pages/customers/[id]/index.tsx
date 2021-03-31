@@ -2,7 +2,7 @@ import { useRouter } from 'next/router'
 import React from 'react'
 import Layout from '../../../components/Layout'
 import Link from 'next/link'
-import { useCustomer } from '../../../hooks/hooks'
+import { useCustomer, useMutationDeleteCustomer } from '../../../hooks/hooks'
 import { ICustomer } from '../../../interfaces'
 import ReactLoading from 'react-loading'
 
@@ -10,10 +10,20 @@ function Customer() {
     const router = useRouter()
     const { id } = router.query
 
+    const mutation = useMutationDeleteCustomer()
+
+    const onClick = () => {
+        mutation.mutate(String(id))
+    }
+
+    if (mutation.isSuccess) {
+        router.push('/')
+    }
+
     const { data, error } = useCustomer(id.toString())
     const customer: ICustomer = data as ICustomer
 
-    if (error) return <div>failed to load</div>
+    if (error || mutation.error) return <div>failed to load</div>
 
     return (
         <Layout>
@@ -31,7 +41,9 @@ function Customer() {
                         <Link href={'/customers/[id]/update'} as={`/customers/${id}/update`}>
                             <a className="editButton">Edit</a>
                         </Link>
-                        <button className="deleteButton">Delete</button>
+                        <button className="deleteButton" onClick={onClick}>
+                            Delete
+                        </button>
                     </div>
                 </div>
             ) : (
