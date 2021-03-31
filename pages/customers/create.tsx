@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import Layout from '../../components/Layout'
 import { ICustomer } from '../../interfaces'
 import { useForm } from 'react-hook-form'
-import { useMutationCreateCustomer } from '../../hooks/hooks'
+import {useMutationCreateCustomer} from '../../hooks/hooks'
 import { useRouter } from 'next/router'
 import Loading from '../../components/Loading'
 

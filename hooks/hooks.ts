@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from 'react-query'
+import {useMutation, useQuery} from 'react-query'
 import {
     createCustomer,
     deleteCustomer,
@@ -8,13 +8,18 @@ import {
 } from '../services/fetch'
 import { ICustomer } from '../interfaces'
 import { UseQueryResult } from 'react-query/types/react/types'
+import {queryClient} from "../pages/_app";
 
 export function useCustomers(): UseQueryResult {
     return useQuery('customers', getCustomers)
 }
 
 export function useMutationCreateCustomer() {
-    return useMutation('customer', (data: ICustomer) => createCustomer(data))
+    return useMutation('customer', (data: ICustomer) => createCustomer(data), {
+        onSuccess: async () => {
+            await queryClient.clear()
+        }
+    })
 }
 
 export function useCustomer(id: string): UseQueryResult {

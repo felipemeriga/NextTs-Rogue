@@ -2,10 +2,16 @@
 import React from 'react'
 import App from 'next/app'
 import '../styles.css'
-import { QueryClient, QueryClientProvider } from 'react-query'
+import {QueryCache, QueryClient, QueryClientProvider} from 'react-query'
 import { Hydrate } from 'react-query/hydration'
 
-const queryClient = new QueryClient()
+export const queryClient = new QueryClient()
+
+export const queryCache = new QueryCache({
+    onError: error => {
+        console.log(error)
+    },
+})
 
 class MyApp extends App {
     // @ts-ignore
