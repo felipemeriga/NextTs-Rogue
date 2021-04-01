@@ -3,7 +3,7 @@ import { sampleCustomerData } from '../utils/sample-data'
 import { AxiosInstance } from 'axios'
 import { ICustomer } from '../interfaces'
 
-export function initMock(axiosIntance: AxiosInstance) {
+export function initMock(axiosIntance: AxiosInstance): void {
     const mock: MockAdapter = new MockAdapter(axiosIntance, { delayResponse: 2000 })
     mock.onGet('/customers').reply(200, sampleCustomerData)
     mock.onPost('/customers').reply(function (config) {

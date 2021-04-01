@@ -6,13 +6,13 @@ import { useCustomer, useMutationDeleteCustomer } from '../../../hooks/hooks'
 import { ICustomer } from '../../../interfaces'
 import Loading from '../../../components/Loading'
 
-function Customer() {
+function Customer(): JSX.Element {
     const router = useRouter()
     const { id } = router.query
 
     const mutation = useMutationDeleteCustomer()
 
-    const onClick = () => {
+    const onClick = (): void => {
         mutation.mutate(String(id))
     }
 

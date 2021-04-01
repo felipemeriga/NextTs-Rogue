@@ -1,4 +1,4 @@
-import {useMutation, useQuery} from 'react-query'
+import { useMutation, useQuery } from 'react-query'
 import {
     createCustomer,
     deleteCustomer,
@@ -7,18 +7,24 @@ import {
     updateCustomer,
 } from '../services/fetch'
 import { ICustomer } from '../interfaces'
-import { UseQueryResult } from 'react-query/types/react/types'
-import {queryClient} from "../pages/_app";
+import { UseMutationResult, UseQueryResult } from 'react-query/types/react/types'
+import { queryClient } from '../pages/_app'
+import { AxiosResponse } from 'axios'
 
 export function useCustomers(): UseQueryResult {
     return useQuery('customers', getCustomers)
 }
 
-export function useMutationCreateCustomer() {
+export function useMutationCreateCustomer(): UseMutationResult<
+    AxiosResponse<any>,
+    unknown,
+    ICustomer,
+    unknown
+> {
     return useMutation('customer', (data: ICustomer) => createCustomer(data), {
         onSuccess: async () => {
             await queryClient.clear()
-        }
+        },
     })
 }
 
@@ -28,10 +34,20 @@ export function useCustomer(id: string): UseQueryResult {
     })
 }
 
-export function useMutationDeleteCustomer() {
+export function useMutationDeleteCustomer(): UseMutationResult<
+    AxiosResponse<any>,
+    unknown,
+    string,
+    unknown
+> {
     return useMutation('customer', (id: string) => deleteCustomer(id))
 }
 
-export function useMutationUpdateCustomer() {
+export function useMutationUpdateCustomer(): UseMutationResult<
+    ICustomer,
+    unknown,
+    ICustomer,
+    unknown
+> {
     return useMutation('customer', (data: ICustomer) => updateCustomer(data))
 }

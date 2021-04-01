@@ -6,7 +6,7 @@ import {useMutationCreateCustomer} from '../../hooks/hooks'
 import { useRouter } from 'next/router'
 import Loading from '../../components/Loading'
 
-const Create = () => {
+function Create(): JSX.Element {
     const [errorMessage, setErrorMessage] = useState<string>('')
     const router = useRouter()
 

@@ -5,7 +5,7 @@ interface IProps {
     data: ICustomer
 }
 
-function DataRow({ data }: IProps) {
+function DataRow({ data }: IProps): JSX.Element {
     return (
         <div className="dataRow">
             <p>

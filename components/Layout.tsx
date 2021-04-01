@@ -6,7 +6,7 @@ type Props = {
     title?: string
 }
 
-function Layout({ children }: Props) {
+function Layout({ children }: Props): JSX.Element {
     return (
         <>
             <Head>

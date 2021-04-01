@@ -6,7 +6,7 @@ import { useCustomers } from '../hooks/hooks'
 import { ICustomer } from '../interfaces'
 import Loading from '../components/Loading'
 
-function App() {
+function App(): JSX.Element {
     const { data } = useCustomers()
     const rowData: ICustomer[] = data as ICustomer[]
 
