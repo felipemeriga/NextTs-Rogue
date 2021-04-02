@@ -23,7 +23,7 @@ function EditForm(props: IProps): JSX.Element {
 
     const onSubmit = handleSubmit(async (formData) => {
         if (errorMessage) setErrorMessage('')
-        formData.id = id
+        formData._id = id
         mutation.mutate(formData)
     })
 

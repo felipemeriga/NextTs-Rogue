@@ -12,7 +12,7 @@ function createAxiosInstanceFactory(axiosRequestConfig: AxiosRequestConfig): Axi
 export function getAxiosInstance(): AxiosInstance {
     if (!axiosInstance) {
         axiosInstance = createAxiosInstanceFactory({
-            baseURL: '',
+            baseURL: '/api',
             timeout: 10000,
             headers: {
                 Accept: 'application/json',
@@ -32,7 +32,7 @@ export async function getCustomers(): Promise<ICustomer[]> {
 }
 
 export async function createCustomer(customer: ICustomer): Promise<AxiosResponse> {
-    return await getAxiosInstance().post('/customers', customer)
+    return await getAxiosInstance().post('/customers/create', customer)
 }
 
 export async function getCustomer(id: string): Promise<ICustomer> {
@@ -41,9 +41,9 @@ export async function getCustomer(id: string): Promise<ICustomer> {
 }
 
 export async function deleteCustomer(id: string): Promise<AxiosResponse> {
-    return await getAxiosInstance().delete(`/customers/${id}`)
+    return await getAxiosInstance().delete(`/customers/${id}/delete`)
 }
 
 export async function updateCustomer(customer: ICustomer): Promise<ICustomer> {
-    return await getAxiosInstance().put(`/customers/${customer.id}`, customer)
+    return await getAxiosInstance().put(`/customers/${customer._id}/update`, customer)
 }

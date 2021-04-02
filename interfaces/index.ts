@@ -5,7 +5,7 @@
 // import { User } from 'path/to/interfaces'
 
 export type ICustomer = {
-    id: string
+    _id: string
     firstName?: string
     lastName?: string
     telephone?: string

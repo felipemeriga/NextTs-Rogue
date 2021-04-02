@@ -6,9 +6,9 @@ import { ICustomer } from '../interfaces'
 export function initMock(axiosIntance: AxiosInstance): void {
     const mock: MockAdapter = new MockAdapter(axiosIntance, { delayResponse: 2000 })
     mock.onGet('/customers').reply(200, sampleCustomerData)
-    mock.onPost('/customers').reply(function (config) {
+    mock.onPost('/customers/create').reply(function (config) {
         const data: ICustomer = JSON.parse(config.data)
-        data.id = String(Math.floor(Math.random() * 100 + 6))
+        data._id = String(Math.floor(Math.random() * 100 + 6))
         sampleCustomerData.push(data)
         return [200, 'response']
     })
@@ -19,7 +19,7 @@ export function initMock(axiosIntance: AxiosInstance): void {
             const id = config.url.substring(config.url.lastIndexOf('/') + 1)
 
             const customer: ICustomer | undefined = sampleCustomerData.find(
-                (value: ICustomer) => value.id === id
+                (value: ICustomer) => value._id === id
             )
             return [200, customer]
         } else {
@@ -31,7 +31,7 @@ export function initMock(axiosIntance: AxiosInstance): void {
         if (config.url) {
             const id = config.url.substring(config.url.lastIndexOf('/') + 1)
             const index: number = sampleCustomerData.findIndex(
-                (value: ICustomer) => value.id === id
+                (value: ICustomer) => value._id === id
             )
             sampleCustomerData.splice(index, 1)
             return [200, 'response']
@@ -42,10 +42,11 @@ export function initMock(axiosIntance: AxiosInstance): void {
 
     mock.onPut(url).reply(function (config) {
         const data: ICustomer = JSON.parse(config.data)
-
+        debugger
         const index: number = sampleCustomerData.findIndex(
-            (value: ICustomer) => value.id === data.id
+            (value: ICustomer) => value._id === data._id
         )
+        debugger
         sampleCustomerData[index] = data
         return [200, data]
     })

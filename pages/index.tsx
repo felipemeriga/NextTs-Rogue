@@ -26,7 +26,7 @@ function App(): JSX.Element {
                 </div>
             </div>
             {data ? (
-                rowData.map((costumer: ICustomer) => <DataRow data={costumer} key={costumer.id} />)
+                rowData.map((costumer: ICustomer) => <DataRow data={costumer} key={costumer._id} />)
             ) : (
                 <Loading />
             )}
