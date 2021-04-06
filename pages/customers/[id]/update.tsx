@@ -10,14 +10,22 @@ function Update(): JSX.Element {
     const router = useRouter()
     const { id } = router.query
 
-    const { data, error } = useCustomer(id.toString())
+    const { data, error } = useCustomer(String(id))
     const customer: ICustomer = data as ICustomer
 
     if (error) return <div>failed to load</div>
 
+    const onSuccess = (): void => {
+        router.push('/')
+    }
+
     return (
         <Layout>
-            {customer ? <EditForm defaultValues={customer} id={id.toString()} /> : <Loading />}
+            {customer ? (
+                <EditForm onSuccess={onSuccess} defaultValues={customer} id={id.toString()} />
+            ) : (
+                <Loading />
+            )}
         </Layout>
     )
 }

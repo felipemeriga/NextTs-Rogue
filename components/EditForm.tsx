@@ -2,17 +2,17 @@ import { ICustomer } from '../interfaces'
 import { useForm } from 'react-hook-form'
 import { useState } from 'react'
 import { useMutationUpdateCustomer } from '../hooks/hooks'
-import { router } from 'next/client'
 
 interface IProps {
     defaultValues: ICustomer
     id: string
+    onSuccess: () => void
 }
 
 function EditForm(props: IProps): JSX.Element {
     const [errorMessage, setErrorMessage] = useState('')
     const mutation = useMutationUpdateCustomer()
-    const { defaultValues, id } = props
+    const { defaultValues, id, onSuccess } = props
 
     const { handleSubmit, register, errors } = useForm({
         defaultValues: {
@@ -32,7 +32,7 @@ function EditForm(props: IProps): JSX.Element {
     }
 
     if (mutation.isSuccess) {
-        router.push('/')
+        onSuccess()
     }
 
     return (

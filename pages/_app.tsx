@@ -7,7 +7,6 @@ import { Hydrate } from 'react-query/hydration'
 export const queryClient = new QueryClient()
 
 class MyApp extends App {
-
     render(): JSX.Element {
         const { Component, pageProps } = this.props
         return (

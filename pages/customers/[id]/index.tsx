@@ -20,7 +20,7 @@ function Customer(): JSX.Element {
         router.push('/')
     }
 
-    const { data, error } = useCustomer(id.toString())
+    const { data, error } = useCustomer(String(id))
     const customer: ICustomer = data as ICustomer
 
     if (error || mutation.error) return <div>failed to load</div>
