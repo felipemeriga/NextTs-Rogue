@@ -12,7 +12,7 @@ function App(): JSX.Element {
 
     return (
         <Layout>
-            <h1>Next Fauna CRUD</h1>
+            <h1>Next CRUD App</h1>
 
             <Link href={'/customers/create'}>
                 <a className="createNew">Create New Customer</a>
