@@ -1,42 +1,37 @@
-# Curso React-NextJS-Typescript
+# Course React-NextJS-Typescript
 
-## Introdução
+## Introduction
 
-Olá galera! Este repositório é dedicado ao curso React-NextJS-Typescript,
-aqui esta presente todo o código que iremos utilizar nas aulas, inclusive esta ultima
-versão já é totalmente funcional, podendo ser executado no seu computador ou
-feita a implantação na vercel.
+Hello Everyone! This repo is dedicated to React-NextJS-Typescript course, here you can find all the codebase that will be used in each of the classes, also this master branch latest version, it's totally functional, and you can run the entire application from it, locally or deploying it with Vercel, which is one of the another topics covered in the course.
 
-O curso é uma aplicação CRUD (Create/Update/Delete) de dados de usuários e seus cartões de
-credito, onde podemos visualizar os usuários criados, criar novos usuários, deletar e atualizar.
+This application, it's a CRUD(Create/Update/Delete) of users and their credit cards, where we could visualise all the users created, create a new one, modify an existing one or either delete some.
 
-Esta aplicação utiliza o framework [NextJS](https://nextjs.org/), e a linguagem de
-programação Typescript, que é um superset do Javascript.
+It's built on the top of [NextJS framework](https://nextjs.org/), and the programming language that is used it's Typescript, which is a superset of Javascript.
 
-## Dependências Utilizadas
+## Dependencies
 
-- Axios: Biblioteca para realizar requisições HTTP/HTTPS
-- axios-mock-adapter: Utilizada para criar mocks para nossa aplicação
-- mongoose: Para interagir com o Mongodb
-- express: Utilizado nas APIs criadas
-- react-hook-form: Utilizado para criar hooks com nossos formulários
-- react-query: Utilizado para criar hooks e gerenciamento de estado por unidade(componente)
+In order to have our project up and running in a fashion way, we will need the help of third party dependencies and libraries, and the used ones are:
+- [Axios](https://www.npmjs.com/package/axios): Library used for doing HTTP/HTTPS requests.
+- [axios-mock-adapter](https://www.npmjs.com/package/axios-mock-adapter): Used for creating mocks HTTP requests for our application.
+- [mongoose](https://www.npmjs.com/package/mongoose): For interacting with the database.
+- [express](https://www.npmjs.com/package/express): Used for exposing HTTP endpoints as the API server.
+- [react-hook-form](https://www.npmjs.com/package/react-hook-form): Used to create hooks with our forms.
+- [react-query](https://www.npmjs.com/package/react-query): Used for creating hooks and state management for each of the components.
 
-## Catalogo de Aulas
+## Course Classes Catalog
 
-- Aula 1 - Conhecendo o React e o NextJS
-- Aula 2 - Instalando as dependencias 
-- Aula 3 - Criando a Primeira Pagina
-- Aula 4 - Criando o _app.tsx
-- Aula 5 - React Query
-- Aula 6 - HTTP Fetch e Mocks
-- Aula 7 - Criar Dados
-- Aula 8 - Update e Delete
-- Aula 9 - Ambiente de Teste
-- Aula 10 - Conexão com MongoDB
-- Aula 11 - Criando primeira API
-- Aula 12 - API Create/Delete/Update
-- Aula 13 - Deploy da Aplicação Vercel
-- Aula 14 - Pipeline CI/CD
-
-
+- Class 1 - Introduction to React and NextJS
+- Class 2 - Installing the dependencies
+- Class 3 - Creating the First Page
+- Class 4 - Creating the _app.tsx
+- Class 5 - React Query
+- Class 6 - HTTP Fetch and Mocks
+- Class 7 - Create data
+- Class 8 - Update and Delete
+- Class 9 - Test Environment
+- Class 10 - MongoDB Connection
+- Class 11 - Creating the First API
+- Class 12 - API Create/Delete/Update
+- Class 13 - Deploying the Application on Vercel
+- Class 14 - CI/CD Pipeline
+- Class 15 - Last Steps
