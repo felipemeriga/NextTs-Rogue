@@ -1,37 +1,63 @@
-# Course React-NextJS-Typescript
+# Class 1 -  Introduction to React and NextJS
+
+### [SWITCH TO PORTUGUESE VERSION](./PT.md)
 
 ## Introduction
 
-Hello Everyone! This repo is dedicated to React-NextJS-Typescript course, here you can find all the codebase that will be used in each of the classes, also this master branch latest version, it's totally functional, and you can run the entire application from it, locally or deploying it with Vercel, which is one of the another topics covered in the course.
+This class we won't be touching in any kind of code yet, it's just 
+an introduction of the technologies that we will be using,
+why and the goals of the course.
 
-This application, it's a CRUD(Create/Update/Delete) of users and their credit cards, where we could visualise all the users created, create a new one, modify an existing one or either delete some.
+## Goals
 
-It's built on the top of [NextJS framework](https://nextjs.org/), and the programming language that is used it's Typescript, which is a superset of Javascript.
+The goals of this course it's basically teaching the basics of NextJS framework, and the Javascript superset 
+Typescript. Additionally, the aim here is not only to teach using this frontend framework, but creating APIs,
+establishing connections with a Database, creating tests, mocks and deploying the final application
+in a fashion way, using CI/CD pipelines.
 
-## Dependencies
+## What You are Going to Learn on That Course 
 
-In order to have our project up and running in a fashion way, we will need the help of third party dependencies and libraries, and the used ones are:
-- [Axios](https://www.npmjs.com/package/axios): Library used for doing HTTP/HTTPS requests.
-- [axios-mock-adapter](https://www.npmjs.com/package/axios-mock-adapter): Used for creating mocks HTTP requests for our application.
-- [mongoose](https://www.npmjs.com/package/mongoose): For interacting with the database.
-- [express](https://www.npmjs.com/package/express): Used for exposing HTTP endpoints as the API server.
-- [react-hook-form](https://www.npmjs.com/package/react-hook-form): Used to create hooks with our forms.
-- [react-query](https://www.npmjs.com/package/react-query): Used for creating hooks and state management for each of the components.
+- How to program and use Typescript, a superset language of Javascript.
+- How to use the latest NextJS framework, for using the performance of static server rendered web pages.
+- Basics of React framework
+- How to create an API layer with NextJS
+- How to create a free MongoDB account and cloud hosted database
+- Connect your API layer with the NoSQL database
+- Create HTTP mockup responses 
+- Source code versioning
+- Deploying your application to Vercel
+- CI/CD Pipelines of your application
 
-## Course Classes Catalog
 
-- Class 1 - Introduction to React and NextJS
-- Class 2 - Installing the dependencies
-- Class 3 - Creating the First Page
-- Class 4 - Creating the _app.tsx
-- Class 5 - React Query
-- Class 6 - HTTP Fetch and Mocks
-- Class 7 - Create data
-- Class 8 - Update and Delete
-- Class 9 - Test Environment
-- Class 10 - MongoDB Connection
-- Class 11 - Creating the First API
-- Class 12 - API Create/Delete/Update
-- Class 13 - Deploying the Application on Vercel
-- Class 14 - CI/CD Pipeline
-- Class 15 - Last Steps
+## [React](https://reactjs.org/)
+
+React is an open-source, front end, JavaScript library for building user interfaces or UI components. It is maintained 
+by Facebook and a community of individual developers and companies. React can be used as a base in the development of 
+single-page or mobile applications.
+
+
+## [NextJS](https://nextjs.org/)
+
+Next.js is an open-source React front-end development web framework created by Vercel that enables functionality
+such as server-side rendering and generating static websites for React based web applications.
+
+Basically there are three ways that web pages get created, they are, dynamic pages, single page applications and
+static pages.
+
+Static pages it's the oldest one, and the fastest one, and the mechanism used
+by NextJS, where the webpage that you are accessing, are first rendered in the server, and then
+sent to the browser as static content, where only that is needed is rendered and sent 
+to the browser.
+
+The single page applications, all the application files are requested, even if they are not going to be used, and 
+Javascript will read the directives of the application and show the piece of UI that is requested. The bad thing
+is that the browser loads all the files, even that some of them won't be used, so this 
+makes the page refresh slower, but once the files are loaded, the navigation it's really fast.
+
+Next basically uses React, which is a Single Page Application framework, and adds server rendering
+to it, producing a static result page, improving the performance of the application.
+
+## [MongoDB](https://www.mongodb.com/2)
+
+MongoDB is a source-available cross-platform document-oriented database program. Classified as a NoSQL database program,
+MongoDB uses JSON-like documents with optional schemas.
