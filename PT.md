@@ -1,58 +1,70 @@
-# Aula 1 -Introdução ao React e NextJS
+# Aula 2 - Instalando Dependencias
 
-## Introdução
+## Dependencias
 
-Nesta aula, não tocaremos nessa classe em nenhum tipo de código ainda, é apenas
-uma introdução das tecnologias que usaremos, e os objetivos do curso.
+Para ter nosso projeto instalado e funcionando de maneira elegante, precisaremos da ajuda de dependências de terceiros e
+bibliotecas, e as utilizadas são:
 
-## Objetivos
+-   [Axios](https://www.npmjs.com/package/axios): Biblioteca usada para fazer solicitações HTTP / HTTPS.
+-   [axios-mock-adapter](https://www.npmjs.com/package/axios-mock-adapter): Usado para criar solicitações de simulação de HTTP para nosso
+    aplicativo.
+-   [mongoose](https://www.npmjs.com/package/mongoose): Para interagir com o banco de dados.
+-   [express](https://www.npmjs.com/package/express): Usado para expor endpoints HTTP/HTTPS como o servidor API.
+-   [react-hook-form](https://www.npmjs.com/package/react-hook-form): Usado para criar ganchos para nossos formulários
+-   [react-query](https://www.npmjs.com/package/react-query): Usado para criar ganchos e gerenciamento de estado para cada um dos
+    componentes.
 
-Os objetivos deste curso são basicamente ensinar os fundamentos do framework NextJS e o superset do Javascript, o
-Typescript. Além disso, o objetivo aqui não é apenas ensinar como usar este framework de front-end, mas criar APIs,
-estabelecendo conexões com um banco de dados, criando testes, simulações e implantando o aplicativo final
-de uma forma elegante, usando pipelines de CI / CD.
+## Instalando Node e NPM
 
-## O que Aprenderemos Neste Curso
+Para instalar as dependências e obter todos os módulos Javascript que você precisa para instalar o Node e NPM, pode encontrar a instalação dele, para qualquer sistema operacional, neste link abaixo:
 
--   Como programar e usar Typescript, uma linguagem superset do Javascript.
--   Como usar o framework NextJS mais recente, para usar o desempenho de páginas da web estáticas renderizadas por servidor.
--   Noções básicas do framework React
--   Como criar uma camada de API com NextJS
--   Como criar uma conta MongoDB gratuita e banco de dados hospedado em nuvem
--   Conecte sua camada de API com o banco de dados NoSQL
--   Criar respostas de mockup HTTP
--   Controle de versão do código fonte
--   Implementando seu aplicativo no Vercel
--   Pipelines de CI / CD do seu aplicativo
+https://www.npmjs.com/get-npm
 
-## [React](https://reactjs.org/)
+## Instalando Dependencias do Projeto
 
-React é uma biblioteca JavaScript de front end de código aberto para a construção de interfaces de usuário ou componentes de IU. É mantido
-pelo Facebook e uma comunidade de desenvolvedores individuais e empresas. O React pode ser usado como base no desenvolvimento de
-aplicativos de página única ou mobile.
+Depois de instalar o NPM, as dependências necessárias para esse projeto estão todas no arquivo [package.json](./package.json),
+só precisa executar o NPM para instalar tudo.
 
-## [NextJS](https://nextjs.org/)
+Execute este comando no caminho raiz do seu projeto:
+```shell
+npm install
+```
 
-Next.js é um framework de desenvolvimento de front-end React de código aberto criada pela Vercel que permite funcionalidades
-como renderização do lado do servidor e geração de sites estáticos para aplicativos da web baseados em React.
 
-Basicamente, existem três maneiras de criar páginas da web: páginas dinâmicas, aplicativos de página única e
-páginas estáticas.
+O NPM irá buscar todas as dependências dentro de [package.json](./package.json).
 
-Páginas estáticas é a mais antiga e a mais rápida, e o mecanismo usado
-por NextJS, onde a página da web que você está acessando, é primeiro renderizada no servidor e, em seguida,
-enviado para o navegador como conteúdo estático, onde apenas o necessário é processado e enviado
-para o navegador.
+## Testing ESlint and Prettier
 
-Os aplicativos de página única, todos os arquivos do aplicativo são solicitados, mesmo que não sejam usados, e
-Javascript lerá as diretivas do aplicativo e mostrará a parte da IU que é solicitada. A coisa ruim
-é que o navegador carrega todos os arquivos, mesmo que alguns deles não sejam usados, então este
-torna a atualização da página mais lenta, mas uma vez que os arquivos são carregados, a navegação é muito rápida.
+Estaremos usando ESLint, que é uma ferramenta de correção de código e linting e
+Prettier, que é uma ferramenta de formatação. Essas ferramentas serão capazes de nos ajudar a manter tudo
+claro, organizado e formatado. Além disso, estamos usando isso para que você possa se acostumar com essas ferramentas, para
+seus próximos projetos, onde a qualidade do código e aprimoramento da qualidade da sintaxe, é uma prática muito boa.
 
-Next, basicamente usa React, que é um framework de aplicativo de página única, e adiciona renderização de servidor
-para ele, produzindo uma página de resultados estáticos, melhorando o desempenho do aplicativo.
 
-## [MongoDB](https://www.mongodb.com/2)
+ESlint e Prettier são configurados nos respectivos arquivos:
+- [.eslintrc.json](.eslintrc.json)
+- [.prettierrc.json](.prettierrc.json)
 
-MongoDB é um programa de banco de dados orientado a documentos. Classificado como um programa de banco de dados NoSQL,
-O MongoDB usa documentos do tipo JSON com esquemas opcionais.
+Na aula gravada, você tera um conhecimento profundo de cada um deles.
+
+Essas duas ferramentas já estão definidas no [package.json](package.json), se você executou o último
+passo, eles já estarão instalados, vamos testá-los agora.
+
+Para testar se essas ferramentas estão funcionando corretamente, crie um arquivo denominado index.tsx em [pages](./pages), e
+cole o seguinte conteúdo:
+
+```typescript jsx
+import React from 'react'
+
+const Index: React.FunctionComponent = () => {
+    return (
+        <div title="Home">
+            <h1>Hello Next.js 👋</h1>
+        </div>
+    )
+}
+
+export default Index
+```
+
+

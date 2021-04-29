@@ -69,14 +69,14 @@ const Index: React.FunctionComponent = () => {
 export default Index
 ```
 
-If you change the formatting of the file, or by purpose force some error, you will see that
-ESLint will point out it to you, also another thing that we can do, it's running the lint in our
-command line, so all the files of the project will be verified, also ESLint is already 
-integrated with Prettier, which means that the linting command formats the code automatically too.
+Se você alterar a formatação do arquivo, ou forçar algum erro de propósito, verá que
+ESLint apontará para você, outra coisa que podemos fazer, é executar o lint em nossa
+linha de comando, então todos os arquivos do projeto serão verificados, também o ESLint já está
+integrado com o Prettier, o que significa que o comando linting também formata o código automaticamente.
 
-You can run it by:
+Pode ser rodado da seguinte maneira:
 ```shell
 npm run lint
 ```
 
-You will see that all the files get formatted, and possible errors raised by ESLint.
+Você verá que todos os arquivos são formatados e possíveis erros gerados pelo ESLint.
