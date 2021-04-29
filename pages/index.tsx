@@ -1,10 +1,13 @@
 import React from 'react'
+import Layout from '../components/Layout'
 
 const Index: React.FunctionComponent = () => {
     return (
-        <div title="Home">
-            <h1>Hello Next.js 👋</h1>
-        </div>
+        <Layout>
+            <div title="Home">
+                <h1>Hello Next.js 👋</h1>
+            </div>
+        </Layout>
     )
 }
 
