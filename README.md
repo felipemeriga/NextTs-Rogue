@@ -38,6 +38,20 @@ NPM will fetch all the dependencies inside [package.json](./package.json).
 
 ## Testing ESlint and Prettier
 
+We are going to be using ESLint, which is a linting and code correction tool and
+Prettier, which is a formatting tool. Those tools will be able to help us in maintaining everything 
+clear, organized and formatted. Also, we are using this so you can get used to those tools, to 
+your next projects, where code quality, and enhancing syntax quality, it's a very good practice.
+
+ESlint and Prettier are configured in the respective files:
+- [.eslintrc.json](.eslintrc.json)
+- [.prettierrc.json](.prettierrc.json)
+
+In the recorded class, you would be able to have a deep understand of each of them.
+
+Those two tools are already defined in the [package.json](package.json), if you have executed the last
+step, they will be already installed, let's test them now.
+
 For testing if those tools are working properly, create a file named index.tsx under [pages](./pages), directory, and
 paste the following content:
 
@@ -54,3 +68,15 @@ const Index: React.FunctionComponent = () => {
 
 export default Index
 ```
+
+If you change the formatting of the file, or by purpose force some error, you will see that
+ESLint will point out it to you, also another thing that we can do, it's running the lint in our
+command line, so all the files of the project will be verified, also ESLint is already 
+integrated with Prettier, which means that the linting command formats the code automatically too.
+
+You can run it by:
+```shell
+npm run lint
+```
+
+You will see that all the files get formatted, and possible errors raised by ESLint.
