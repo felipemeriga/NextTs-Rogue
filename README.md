@@ -1,82 +1,63 @@
-# Class 2 - Installing the dependencies
+# Class 1 -  Introduction to React and NextJS
 
 ### [SWITCH TO PORTUGUESE VERSION](./PT.md)
 
-## Dependencies
+## Introduction
 
-In order to have our project up and running in a fashion way, we will need the help of third party dependencies and
-libraries, and the used ones are:
+This class we won't be touching in any kind of code yet, it's just
+an introduction of the technologies that we will be using,
+why and the goals of the course.
 
--   [Axios](https://www.npmjs.com/package/axios): Library used for doing HTTP/HTTPS requests.
--   [axios-mock-adapter](https://www.npmjs.com/package/axios-mock-adapter): Used for creating mocks HTTP requests for our
-    application.
--   [mongoose](https://www.npmjs.com/package/mongoose): For interacting with the database.
--   [express](https://www.npmjs.com/package/express): Used for exposing HTTP endpoints as the API server.
--   [react-hook-form](https://www.npmjs.com/package/react-hook-form): Used to create hooks with our forms.
--   [react-query](https://www.npmjs.com/package/react-query): Used for creating hooks and state management for each of the
-    components.
+## Goals
 
-## Installing Node and NPM
+The goals of this course it's basically teaching the basics of NextJS framework, and the Javascript superset
+Typescript. Additionally, the aim here is not only to teach using this frontend framework, but creating APIs,
+establishing connections with a Database, creating tests, mocks and deploying the final application
+in a fashion way, using CI/CD pipelines.
 
-In order to install the dependencies and get all the Javascript modules you would need to install Node and NPM, you can
-find the installation of it, for any operational system, in this link bellow:
+## What You are Going to Learn on That Course
 
-https://www.npmjs.com/get-npm
+- How to program and use Typescript, a superset language of Javascript.
+- How to use the latest NextJS framework, for using the performance of static server rendered web pages.
+- Basics of React framework
+- How to create an API layer with NextJS
+- How to create a free MongoDB account and cloud hosted database
+- Connect your API layer with the NoSQL database
+- Create HTTP mockup responses
+- Source code versioning
+- Deploying your application to Vercel
+- CI/CD Pipelines of your application
 
-## Installing the Dependencies of the Project
 
-After installing NPM, the dependencies needed for that project are all in the [package.json](./package.json) file, we
-just need to execute NPM to install everything.
+## [React](https://reactjs.org/)
 
-Run this command on the root path of your project:
+React is an open-source, front end, JavaScript library for building user interfaces or UI components. It is maintained
+by Facebook and a community of individual developers and companies. React can be used as a base in the development of
+single-page or mobile applications.
 
-```shell
-npm install
-```
 
-NPM will fetch all the dependencies inside [package.json](./package.json).
+## [NextJS](https://nextjs.org/)
 
-## Testing ESlint and Prettier
+Next.js is an open-source React front-end development web framework created by Vercel that enables functionality
+such as server-side rendering and generating static websites for React based web applications.
 
-We are going to be using ESLint, which is a linting and code correction tool and
-Prettier, which is a formatting tool. Those tools will be able to help us in maintaining everything 
-clear, organized and formatted. Also, we are using this so you can get used to those tools, to 
-your next projects, where code quality, and enhancing syntax quality, it's a very good practice.
+Basically there are three ways that web pages get created, they are, dynamic pages, single page applications and
+static pages.
 
-ESlint and Prettier are configured in the respective files:
-- [.eslintrc.json](.eslintrc.json)
-- [.prettierrc.json](.prettierrc.json)
+Static pages it's the oldest one, and the fastest one, and the mechanism used
+by NextJS, where the webpage that you are accessing, are first rendered in the server, and then
+sent to the browser as static content, where only that is needed is rendered and sent
+to the browser.
 
-In the recorded class, you would be able to have a deep understand of each of them.
+The single page applications, all the application files are requested, even if they are not going to be used, and
+Javascript will read the directives of the application and show the piece of UI that is requested. The bad thing
+is that the browser loads all the files, even that some of them won't be used, so this
+makes the page refresh slower, but once the files are loaded, the navigation it's really fast.
 
-Those two tools are already defined in the [package.json](package.json), if you have executed the last
-step, they will be already installed, let's test them now.
+Next basically uses React, which is a Single Page Application framework, and adds server rendering
+to it, producing a static result page, improving the performance of the application.
 
-For testing if those tools are working properly, create a file named index.tsx under [pages](./pages), directory, and
-paste the following content:
+## [MongoDB](https://www.mongodb.com/2)
 
-```typescript jsx
-import React from 'react'
-
-const Index: React.FunctionComponent = () => {
-    return (
-        <div title="Home">
-            <h1>Hello Next.js 👋</h1>
-        </div>
-    )
-}
-
-export default Index
-```
-
-If you change the formatting of the file, or by purpose force some error, you will see that
-ESLint will point out it to you, also another thing that we can do, it's running the lint in our
-command line, so all the files of the project will be verified, also ESLint is already 
-integrated with Prettier, which means that the linting command formats the code automatically too.
-
-You can run it by:
-```shell
-npm run lint
-```
-
-You will see that all the files get formatted, and possible errors raised by ESLint.
+MongoDB is a source-available cross-platform document-oriented database program. Classified as a NoSQL database program,
+MongoDB uses JSON-like documents with optional schemas.

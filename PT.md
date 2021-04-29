@@ -14,22 +14,24 @@ de uma forma elegante, usando pipelines de CI / CD.
 
 ## O que Aprenderemos Neste Curso
 
--   Como programar e usar Typescript, uma linguagem superset do Javascript.
--   Como usar o framework NextJS mais recente, para usar o desempenho de páginas da web estáticas renderizadas por servidor.
--   Noções básicas do framework React
--   Como criar uma camada de API com NextJS
--   Como criar uma conta MongoDB gratuita e banco de dados hospedado em nuvem
--   Conecte sua camada de API com o banco de dados NoSQL
--   Criar respostas de mockup HTTP
--   Controle de versão do código fonte
--   Implementando seu aplicativo no Vercel
--   Pipelines de CI / CD do seu aplicativo
+- Como programar e usar Typescript, uma linguagem superset do Javascript.
+- Como usar o framework NextJS mais recente, para usar o desempenho de páginas da web estáticas renderizadas por servidor.
+- Noções básicas do framework React
+- Como criar uma camada de API com NextJS
+- Como criar uma conta MongoDB gratuita e banco de dados hospedado em nuvem
+- Conecte sua camada de API com o banco de dados NoSQL
+- Criar respostas de mockup HTTP
+- Controle de versão do código fonte
+- Implementando seu aplicativo no Vercel
+- Pipelines de CI / CD do seu aplicativo
+
 
 ## [React](https://reactjs.org/)
 
 React é uma biblioteca JavaScript de front end de código aberto para a construção de interfaces de usuário ou componentes de IU. É mantido
 pelo Facebook e uma comunidade de desenvolvedores individuais e empresas. O React pode ser usado como base no desenvolvimento de
 aplicativos de página única ou mobile.
+
 
 ## [NextJS](https://nextjs.org/)
 
