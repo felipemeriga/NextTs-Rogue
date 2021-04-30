@@ -1,26 +1,105 @@
-# Class 4 - Creating the _app.tsx
+# Class 5 - Adding Style to our App
 
 ### [SWITCH TO PORTUGUESE VERSION](./PT.md)
 
-This class we are going to be creating the _app.tsx component,
-which is a component that overrides some next default configurations,
-because as Next works as static webpages, each of the pages of the application
-are treated like separated pages.
+In this class we are going to be adding style to our app,
+we will add some CSS classes to our components, because until now
+we only have plain HTML elements.
 
-So next uses App component to initialize pages, so every page that is 
-initialized it will use that configuration, and we can override that configuration,
-creating a file named [_app.tsx](pages/_app.tsx), in the [pages](pages) folder,
-that will override the main configuration.
+There are many ways to add CSS/SCSS to your app, we can use for
+example the library [styled-components](https://styled-components.com/docs/api),
+that it's one of the best options for styling our components.
 
-Why do we need this? Because, if you want to inject some generic CSS over all the pages,
-or configure a middleware for all the pages, you would need to override the configurations.
+For sake of simplicity and as the focus of that course, it's styling,
+we will use the plain and old CSS, and some Flexbox capabilities.
 
-So, create a file inside [pages](pages) folder named _app.tsx, and paste the content:
+So basically, you just need to create a file called [styles.css](styles.css),
+and past the following content(Remember that the explanation of each of the 
+pasted contents, are explained in the video class):
+
+```css
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+body {
+    margin: 0;
+    color: #333;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+        Noto Sans, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
+        'Noto Color Emoji';
+}
+a {
+    color: #0070f3;
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+hr {
+    border: none;
+    border-top: 1px solid #eaeaea;
+}
+
+.container {
+    max-width: 40rem;
+    margin: 1.5rem auto;
+    padding: 0 1rem;
+}
+
+h2 {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0;
+    padding: 0 32px;
+}
+h4 {
+    color: #555;
+    font-size: 12px;
+    font-weight: 400;
+    text-transform: uppercase;
+}
+.createNew {
+    display: inline-block;
+    background-color: #0070f3;
+    border-radius: 3px;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    margin-bottom: 1rem;
+}
+.createNew:hover {
+    text-decoration: none;
+}
+.table {
+    border: 1px solid #eaeaea;
+    border-radius: 4px;
+    min-width: 512px;
+    padding-top: 24px;
+}
+.headerRow {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: 1fr 1fr 1fr;
+    padding: 0 32px;
+}
+.creditCard {
+    margin-left: auto;
+}
+
+```
+
+Mas como NextJS funciona como páginas estáticas, todas as páginas são renderizadas no lado do servidor,
+precisamos ter certeza de que todas as páginas terão acesso ao CSS, então a única coisa que você precisa
+a fazer é importar este CSS em [_app.tsx] (pages / _app.tsx), para que todos os arquivos o recebam.
+Porque, como vimos na última aula, o arquivo _app.tsx substitui a configuração de renderização do lado do servidor
+das páginas.
 
 ```typescript jsx
 // pages/_app.js
 import App from 'next/app'
 import React from 'react'
+import '../styles.css'
 
 class MyApp extends App {
     render(): JSX.Element {
@@ -30,36 +109,5 @@ class MyApp extends App {
 }
 
 export default MyApp
-
-```
-
-And finally paste the following code on [index.tsx](pages/index.tsx):
-
-```typescript jsx
-import Link from 'next/link'
-import Layout from '../components/Layout'
-import * as React from 'react'
-
-function App(): JSX.Element {
-    return (
-        <Layout>
-            <h1>Next CRUD App</h1>
-
-            <Link href={'/customers/create'}>
-                <a className="createNew">Create New Customer</a>
-            </Link>
-            <div className="table">
-                <h2>Customer Data</h2>
-                <div className="headerRow">
-                    <h4>name</h4>
-                    <h4>telephone</h4>
-                    <h4 className="creditCard">credit card</h4>
-                </div>
-            </div>
-        </Layout>
-    )
-}
-
-export default App
 
 ```

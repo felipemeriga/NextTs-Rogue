@@ -1,27 +1,99 @@
-# Aula 4 - Criando o _app.tsx
+# Aula 5 - Adicionando Estilo ao Nosso App
 
-Nesta classe iremos criar o componente _app.tsx,
-que é um componente que substitui algumas das configurações padrão do NextJS,
-porque, como Next funciona como páginas da web estáticas, cada uma das páginas do aplicativo
-são tratados como páginas separadas, desta forma utilizamos o _app.tsx, para substituir as configurações
-padrões do Next, e injetar algumas configurações que vamos criar, em todas
-as páginas estáticas.
 
-O NextJS, usa o componente App para inicializar páginas, então cada página que é
-inicializada, ele usará essa configuração, e podemos substituir essa configuração,
-criando um arquivo chamado [_app.tsx](pages/_app.tsx), na pasta [pages](pages),
-isso substituirá a configuração principal.
+Nesta aula, iremos adicionar estilo ao nosso aplicativo,
+vamos adicionar algumas classes CSS aos nossos componentes, porque até agora
+temos apenas elementos HTML simples.
 
-Por que nós precisamos disso? Porque, se você quiser injetar algum CSS genérico em todas as páginas,
-ou configurar um middleware para todas as páginas, você precisará substituir as configurações.
+Existem muitas maneiras de adicionar CSS / SCSS ao seu aplicativo, que podemos usar para
+exemplo da biblioteca [styled-components](https://styled-components.com/docs/api),
+que é uma das melhores opções para estilizar nossos componentes.
 
-Portanto, crie um arquivo dentro da pasta [pages](pages) chamado _app.tsx e cole o conteúdo:
+Por uma questão de simplicidade e como o foco desse curso, não é o estilo,
+usaremos CSS simples e antigo e alguns recursos do Flexbox.
+
+Então, basicamente, você só precisa criar um arquivo chamado [styles.css](styles.css),
+e passado o seguinte conteúdo (Lembre-se de que a explicação de cada um dos
+conteúdos colados, são explicados na aula de vídeo):
+
+```css
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+body {
+    margin: 0;
+    color: #333;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+        Noto Sans, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
+        'Noto Color Emoji';
+}
+a {
+    color: #0070f3;
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+hr {
+    border: none;
+    border-top: 1px solid #eaeaea;
+}
+
+.container {
+    max-width: 40rem;
+    margin: 1.5rem auto;
+    padding: 0 1rem;
+}
+
+h2 {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0;
+    padding: 0 32px;
+}
+h4 {
+    color: #555;
+    font-size: 12px;
+    font-weight: 400;
+    text-transform: uppercase;
+}
+.createNew {
+    display: inline-block;
+    background-color: #0070f3;
+    border-radius: 3px;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    margin-bottom: 1rem;
+}
+.createNew:hover {
+    text-decoration: none;
+}
+.table {
+    border: 1px solid #eaeaea;
+    border-radius: 4px;
+    min-width: 512px;
+    padding-top: 24px;
+}
+.headerRow {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: 1fr 1fr 1fr;
+    padding: 0 32px;
+}
+.creditCard {
+    margin-left: auto;
+}
+
+```
 
 
 ```typescript jsx
 // pages/_app.js
 import App from 'next/app'
 import React from 'react'
+import '../styles.css'
 
 class MyApp extends App {
     render(): JSX.Element {
@@ -31,36 +103,5 @@ class MyApp extends App {
 }
 
 export default MyApp
-
-```
-
-E finalmente copie o código abaixo, para o arquivo [index.tsx](pages/index.tsx):
-
-```typescript jsx
-import Link from 'next/link'
-import Layout from '../components/Layout'
-import * as React from 'react'
-
-function App(): JSX.Element {
-    return (
-        <Layout>
-            <h1>Next CRUD App</h1>
-
-            <Link href={'/customers/create'}>
-                <a className="createNew">Create New Customer</a>
-            </Link>
-            <div className="table">
-                <h2>Customer Data</h2>
-                <div className="headerRow">
-                    <h4>name</h4>
-                    <h4>telephone</h4>
-                    <h4 className="creditCard">credit card</h4>
-                </div>
-            </div>
-        </Layout>
-    )
-}
-
-export default App
 
 ```
