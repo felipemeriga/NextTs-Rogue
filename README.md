@@ -27,8 +27,8 @@ In order to have our project up and running in a fashion way, we will need the h
 - Class 5 - Adding Style to our App
 - Class 6 - Creating the Table Component
 - Class 7 - Loading and Create Component  
-- Class 8 - React Query
-- Class 9 - HTTP Fetch and Mocks
+- Class 8 - HTTP Fetch and Mocks
+- Class 9 - React Query
 - Class 10 - Create data
 - Class 11 - Update and Delete
 - Class 12 - Test Environment
