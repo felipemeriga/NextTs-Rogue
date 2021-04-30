@@ -66,3 +66,15 @@ h4 {
 .creditCard {
     margin-left: auto;
 }
+
+.dataRow {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: 1fr 1fr 1fr;
+    padding: 0 32px;
+    border-top: 1px solid #eaeaea;
+}
+
+.num {
+    font-family: Roboto, 'Open Sans', serif;
+}

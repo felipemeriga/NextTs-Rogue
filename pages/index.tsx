@@ -1,8 +1,13 @@
 import Link from 'next/link'
 import Layout from '../components/Layout'
 import * as React from 'react'
+import { sampleCustomerData } from '../utils/sample-data'
+import { ICustomer } from '../interfaces'
+import DataRow from '../components/DataRow'
 
 function App(): JSX.Element {
+    const rowData: ICustomer[] = sampleCustomerData as ICustomer[]
+
     return (
         <Layout>
             <h1>Next CRUD App</h1>
@@ -18,6 +23,9 @@ function App(): JSX.Element {
                     <h4 className="creditCard">credit card</h4>
                 </div>
             </div>
+            {rowData.map((costumer: ICustomer) => (
+                <DataRow data={costumer} key={costumer._id} />
+            ))}
         </Layout>
     )
 }
