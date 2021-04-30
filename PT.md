@@ -1,118 +1,216 @@
-# Aula 6 - Criando o Componente Tabela
+# Aula 7 - Criando os Components de Loading e Formulário
 
-Nesta aula, vamos criar nosso componente de tabela simples,
-e adicionar alguns dados de teste, e claro, algum estilo também.
+Nesta aula, vamos fazer um componente de carregamento, e também
+o componente criar formulário, que é o formulário onde vamos criar
+mais clientes.
 
-Agora é hora de criar algumas interfaces para o aplicativo, pois estamos lidando com os clientes,
-vamos criar uma interface para eles, então crie uma pasta chamada [interfaces](interfaces), e crie um
-arquivo denominado [index.ts](interfaces/index.ts), com o seguinte conteúdo:
-```typescript
-export type ICustomer = {
-    _id: string
-    firstName?: string
-    lastName?: string
-    telephone?: string
-    creditCard?: string
-}
-
-```
-
-Agora crie um arquivo na pasta [utils](utils), chamado [sample-data.ts](utils/sample-data.ts)
-e cole o seguinte conteúdo:
+Primeiro, vamos criar nosso componente de carregamento, denominado [Loading.tsx](components/Loading.tsx),
+a pasta [components](components):
 
 ```typescript jsx
-import { ICustomer } from '../interfaces'
+import ReactLoading from 'react-loading'
+import * as React from 'react'
 
-/** Dummy user data. */
-export const sampleCustomerData: ICustomer[] = [
-    {
-        _id: '1',
-        firstName: 'Rhys',
-        lastName: 'Thorogood',
-        telephone: '525-110-3249',
-        creditCard: '5274561981781908',
-    },
-    {
-        _id: '2',
-        firstName: 'Emlen',
-        lastName: 'Coombs',
-        telephone: '269-417-9841',
-        creditCard: '3564749194727131',
-    },
-    {
-        _id: '3',
-        firstName: 'Holly',
-        lastName: 'Fallen',
-        telephone: '135-152-2366',
-        creditCard: '3569686548587750',
-    },
-    {
-        _id: '4',
-        firstName: 'Jo',
-        lastName: 'Malek',
-        telephone: '381-905-2232',
-        creditCard: '5602230308519481',
-    },
-    {
-        _id: '5',
-        firstName: 'Brandyn',
-        lastName: 'Hunnam',
-        telephone: '595-920-3257',
-        creditCard: '3583343896760025',
-    },
-]
-
-```
-
-Este é um conjunto fictício de dados, que usaremos no momento, e também
-vamos usar isso quando criarmos nossos mockups.
-
-Depois disso, crie o seguinte componente, em [components](components), denominado
-[DataRow.tsx](components/DataRow.tsx) e cole o seguinte conteúdo:
-```typescript jsx
-import Link from 'next/link'
-import React from 'react'
-import { ICustomer } from '../interfaces'
-
-interface IProps {
-    data: ICustomer
-}
-
-function DataRow({ data }: IProps): JSX.Element {
+function Loading(): JSX.Element {
     return (
-        <div className="dataRow">
-            <p>
-                <Link href={'/customers/[id]'} as={`/customers/${data._id}`}>
-                    <a>
-                        {data.firstName} {data.lastName}
-                    </a>
-                </Link>
-            </p>
-            <p className={`num`}>{data.telephone}</p>
-            <p className={`creditCard`}>{data.creditCard}</p>
+        <div className="loading">
+            <ReactLoading type={'spin'} color={'#0073ff'} />
         </div>
     )
 }
 
-export default DataRow
+export default Loading
 
 ```
 
+Agora estamos prontos para inserir este componente em [index.tsx](pages/index.tsx), modifique este código
+com este:
+```typescript jsx
+import Link from 'next/link'
+import Layout from '../components/Layout'
+import * as React from 'react'
+import { sampleCustomerData } from '../utils/sample-data'
+import { ICustomer } from '../interfaces'
+import DataRow from '../components/DataRow'
+import Loading from '../components/Loading'
 
-Você deve ter notado que precisamos adicionar alguns estilos, então vá para o arquivo [styles.css](styles.css),
-e adicione as seguintes linhas:
+function App(): JSX.Element {
+    const data = sampleCustomerData
+    const rowData: ICustomer[] = data as ICustomer[]
 
-```css
-.dataRow {
-    display: grid;
-    grid-auto-flow: column;
-    grid-template-columns: 1fr 1fr 1fr;
-    padding: 0 32px;
-    border-top: 1px solid #eaeaea;
+    return (
+        <Layout>
+            <h1>Next CRUD App</h1>
+
+            <Link href={'/customers/create'}>
+                <a className="createNew">Create New Customer</a>
+            </Link>
+            <div className="table">
+                <h2>Customer Data</h2>
+                <div className="headerRow">
+                    <h4>name</h4>
+                    <h4>telephone</h4>
+                    <h4 className="creditCard">credit card</h4>
+                </div>
+            </div>
+            {data ? (
+                rowData.map((costumer: ICustomer) => <DataRow data={costumer} key={costumer._id} />)
+            ) : (
+                <Loading />
+            )}
+        </Layout>
+    )
 }
 
-.num {
-    font-family: Roboto, 'Open Sans', serif;
+export default App
+
+```
+
+Agora vamos criar o [componente do formulário](pages/customers/create.tsx), então crie um arquivo na
+pasta [/pages/customers/create.tsx](/pages/customers/create.tsx):
+
+```typescript jsx
+import React, { useState } from 'react'
+import Layout from '../../components/Layout'
+import { ICustomer } from '../../interfaces'
+import { useForm } from 'react-hook-form'
+
+function Create(): JSX.Element {
+    const [errorMessage, setErrorMessage] = useState<string>('')
+
+    const { handleSubmit, register, errors } = useForm<ICustomer>()
+
+    const onSubmit = handleSubmit(async (formData: ICustomer) => {
+        if (errorMessage) setErrorMessage('')
+        console.log(formData)
+    })
+
+    return (
+        <Layout>
+            <h1>Create Customer</h1>
+            <div>
+                <form onSubmit={onSubmit}>
+                    <div>
+                        <label>First Name</label>
+                        <input
+                            type="text"
+                            name="firstName"
+                            placeholder="e.g. John"
+                            ref={register({ required: 'First Name is required' })}
+                        />
+                        {errors.firstName && (
+                            <span role="alert" className="error">
+                                {errors.firstName.message}
+                            </span>
+                        )}
+                    </div>
+
+                    <div>
+                        <label>Last Name</label>
+                        <input
+                            type="text"
+                            name="lastName"
+                            placeholder="e.g. Doe"
+                            ref={register({ required: 'Last Name is required' })}
+                        />
+                        {errors.lastName && (
+                            <span role="alert" className="error">
+                                {errors.lastName.message}
+                            </span>
+                        )}
+                    </div>
+
+                    <div>
+                        <label>Telephone</label>
+                        <input
+                            type="text"
+                            name="telephone"
+                            placeholder="e.g. 123-456-7890"
+                            ref={register}
+                        />
+                        {errors.telephone && (
+                            <span role="alert" className="error">
+                                {errors.telephone.message}
+                            </span>
+                        )}
+                    </div>
+
+                    <div>
+                        <label>Credit Card Number</label>
+                        <input
+                            type="text"
+                            name="creditCard"
+                            placeholder="e.g. 1234567890123456"
+                            ref={register}
+                        />
+                        {errors.creditCard && (
+                            <span role="alert" className="error">
+                                {errors.creditCard.message}
+                            </span>
+                        )}
+                    </div>
+
+                    <div className="submit">
+                        <button type="submit" className="submitButton">
+                            Create
+                        </button>
+                    </div>
+                </form>
+                {errorMessage && (
+                    <p role="alert" className="errorMessage">
+                        {errorMessage}
+                    </p>
+                )}
+            </div>
+        </Layout>
+    )
+}
+
+export default Create
+
+```
+
+Adicione o seguinte CSS a [styles.css](styles.css), a fim de dar algum estilo ao nosso
+formulário.
+
+```css
+
+form {
+    background-color: #eee;
+    border-radius: 4px;
+    padding: 2rem;
+}
+label {
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+input {
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 0.75rem;
+    margin: 0.25rem 0 1rem;
+}
+.submit {
+    margin-top: 1rem;
+    text-align: right;
+}
+.submitButton {
+    background-color: #0070f3;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+}
+.error,
+.errorMessage {
+    color: #d32f2f;
+}
+.error {
+    display: block;
+    margin-bottom: 1rem;
 }
 
 ```

@@ -4,9 +4,11 @@ import * as React from 'react'
 import { sampleCustomerData } from '../utils/sample-data'
 import { ICustomer } from '../interfaces'
 import DataRow from '../components/DataRow'
+import Loading from '../components/Loading'
 
 function App(): JSX.Element {
-    const rowData: ICustomer[] = sampleCustomerData as ICustomer[]
+    const data = sampleCustomerData
+    const rowData: ICustomer[] = data as ICustomer[]
 
     return (
         <Layout>
@@ -23,9 +25,11 @@ function App(): JSX.Element {
                     <h4 className="creditCard">credit card</h4>
                 </div>
             </div>
-            {rowData.map((costumer: ICustomer) => (
-                <DataRow data={costumer} key={costumer._id} />
-            ))}
+            {data ? (
+                rowData.map((costumer: ICustomer) => <DataRow data={costumer} key={costumer._id} />)
+            ) : (
+                <Loading />
+            )}
         </Layout>
     )
 }
