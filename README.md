@@ -25,14 +25,15 @@ In order to have our project up and running in a fashion way, we will need the h
 - Class 3 - Creating the First Page
 - Class 4 - Creating the _app.tsx
 - Class 5 - Adding Style to our App
-- Class 6 - React Query
-- Class 7 - HTTP Fetch and Mocks
-- Class 8 - Create data
-- Class 9 - Update and Delete
-- Class 10 - Test Environment
-- Class 11 - MongoDB Connection
-- Class 12 - Creating the First API
-- Class 13 - API Create/Delete/Update
-- Class 14 - Deploying the Application on Vercel
-- Class 15 - CI/CD Pipeline
-- Class 16 - Last Steps
+- Class 6 - Creating the Table Component
+- Class 7 - React Query
+- Class 8 - HTTP Fetch and Mocks
+- Class 9 - Create data
+- Class 10 - Update and Delete
+- Class 11 - Test Environment
+- Class 12 - MongoDB Connection
+- Class 13 - Creating the First API
+- Class 14 - API Create/Delete/Update
+- Class 15 - Deploying the Application on Vercel
+- Class 16 - CI/CD Pipeline
+- Class 17 - Last Steps
