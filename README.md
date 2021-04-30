@@ -118,6 +118,3 @@ and add the following lines:
 }
 
 ```
-
-
-Excelente! Agora, se você executar seu projeto, poderá verificar uma tabela com todos os dados fictícios!
