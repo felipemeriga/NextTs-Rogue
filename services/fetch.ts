@@ -41,5 +41,5 @@ export async function getCustomer(id: string): Promise<ICustomer> {
 }
 
 export async function deleteCustomer(id: string): Promise<AxiosResponse> {
-    return await getAxiosInstance().delete(`/customers/${id}/delete`)
+    return await getAxiosInstance().delete(`/customers/${id}`)
 }

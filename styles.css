@@ -122,3 +122,30 @@ input {
     display: block;
     margin-bottom: 1rem;
 }
+
+.name {
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+.buttons {
+    text-align: right;
+}
+.editButton {
+    display: inline-block;
+    border: 1px solid #0070f3;
+    border-radius: 3px;
+    padding: 0.25rem 1rem;
+    margin-right: 0.25rem;
+}
+.editButton:hover {
+    text-decoration: none;
+}
+.deleteButton {
+    background-color: inherit;
+    border: 1px solid #d32f2f;
+    border-radius: 3px;
+    padding: 0.25rem 1rem;
+    cursor: pointer;
+    font-size: 1rem;
+    color: #d32f2f;
+}
