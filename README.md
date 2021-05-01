@@ -29,12 +29,13 @@ In order to have our project up and running in a fashion way, we will need the h
 - Class 7 - Loading and Create Component  
 - Class 8 - HTTP Fetch and Mocks
 - Class 9 - React Query
-- Class 10 - Create data
-- Class 11 - Update and Delete
-- Class 12 - Test Environment
-- Class 13 - MongoDB Connection
-- Class 14 - Creating the First API
-- Class 15 - API Create/Delete/Update
-- Class 16 - Deploying the Application on Vercel
-- Class 17 - CI/CD Pipeline
-- Class 18 - Last Steps
+- Class 10 - Create Customer Hook
+- Class 11 - Single Customer Component and Hook
+- Class 12 - Update and Delete
+- Class 13 - Test Environment
+- Class 14 - MongoDB Connection
+- Class 15 - Creating the First API
+- Class 16 - API Create/Delete/Update
+- Class 17 - Deploying the Application on Vercel
+- Class 18 - CI/CD Pipeline
+- Class 19 - Last Steps
