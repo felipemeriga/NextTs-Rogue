@@ -2,11 +2,21 @@
 import App from 'next/app'
 import React from 'react'
 import '../styles.css'
+import { QueryClient, QueryClientProvider } from 'react-query'
+import { Hydrate } from 'react-query/hydration'
+
+export const queryClient = new QueryClient()
 
 class MyApp extends App {
     render(): JSX.Element {
         const { Component, pageProps } = this.props
-        return <Component {...pageProps} />
+        return (
+            <QueryClientProvider client={queryClient}>
+                <Hydrate state={pageProps.dehydratedState}>
+                    <Component {...pageProps} />
+                </Hydrate>
+            </QueryClientProvider>
+        )
     }
 }
 

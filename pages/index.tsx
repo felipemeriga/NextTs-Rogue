@@ -1,13 +1,13 @@
 import Link from 'next/link'
 import Layout from '../components/Layout'
 import * as React from 'react'
-import { sampleCustomerData } from '../utils/sample-data'
 import { ICustomer } from '../interfaces'
 import DataRow from '../components/DataRow'
 import Loading from '../components/Loading'
+import { useCustomers } from '../hooks/hooks'
 
 function App(): JSX.Element {
-    const data = sampleCustomerData
+    const { data } = useCustomers()
     const rowData: ICustomer[] = data as ICustomer[]
 
     return (

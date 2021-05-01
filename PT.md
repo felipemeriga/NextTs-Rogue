@@ -1,86 +1,166 @@
-# Aula 8 - Criando a camada HTTP e Mockups
+# Aula 9 - React Query
 
-Nesta aula, vamos trabalhar em Axios e mockups,
-Axios é o pacote NPM para nos ajudar a fazer solicitações HTTP, e mockups
-é basicamente interceptar essas solicitações HTTP e respondê-las com dados fictícios,
-esta é uma prática comum de desenvolvedores frontend, porque as solicitações de HTTP
-são criados para solicitar dados de um backend / microsserviço.
+React Query, é um pacote NPM incrível que nos ajuda
+fazer chamadas assíncronas e criar ganchos diretamente do estado de nossos componentes,
+então, por exemplo, você pode chamar uma função HTTP assíncrona e, quando os resultados forem recebidos,
+independentemente do sucesso ou não, isso acionará o gancho do componente, para que ele possa
+receber os novos dados em seu estado e usá-los.
 
-Normalmente, a equipe que cria a camada API não está em sincronização com o
-equipe de frontend, então, em vez de esperar que os endpoints da API estejam prontos pelos desenvolvedores de backend,
-podemos criar simulações, que irão interceptar e retornar respostas falsas para nosso aplicativo, apenas para
-simule até que a API ainda não esteja pronta.
+Como discutimos em algumas últimas aulas, os componentes React e NextJS têm a capacidade de gerenciamento de estado, o estado do componente é um objeto, que pode ser de qualquer tipo e ter muitos
+atributos, e toda vez que este objeto sofre algum tipo de mudança, o componente React renderiza
+em si, o que significa que todo o componente é atualizado novamente.
 
-Primeiro, crie um arquivo chamado [constants](utils/constants.ts), no diretório [utils](utils):
+A capacidade de gerenciar seu estado, é o padrão do React, cada um dos componentes
+pode gerenciar seu estado de maneira idônea, embora, também existam muitos pacotes NPM para gerenciar o estado dos componentes, temos, por exemplo,
+o famoso Redux, que é um gestor de estado global, o que significa que o estado é gerido em um estado global entre
+todos os componentes.
+
+Mas, um grande problema aparece quando estamos lidando com a atualização do estado dos componentes e chamada de métodos assíncronos,
+como são assíncronos, não sabemos quando estão exatamente nos respondendo e, ao mesmo tempo, não podemos travar
+nosso componente até que este método tenha uma resposta para nós.
+
+React Query é a solução para isso, ajuda você a criar ganchos no nível do componente,
+e chamar funções assíncronas, como chamadas HTTP, e quando essas funções tiverem uma resposta, o
+ganchos serão acionados e nosso estado atualizado, como mágica!
+
+Primeiro, precisamos configurar React Query em nosso [_app.tsx](pages/_app.tsx):
 ```typescript jsx
-export const MOCK_ON = process.env.REACT_MOCK_ON === 'true'
+// pages/_app.js
+import App from 'next/app'
+import React from 'react'
+import '../styles.css'
+import { QueryClient, QueryClientProvider } from 'react-query'
+import { Hydrate } from 'react-query/hydration'
+
+export const queryClient = new QueryClient()
+
+class MyApp extends App {
+    render(): JSX.Element {
+        const { Component, pageProps } = this.props
+        return (
+            <QueryClientProvider client={queryClient}>
+                <Hydrate state={pageProps.dehydratedState}>
+                    <Component {...pageProps} />
+                </Hydrate>
+            </QueryClientProvider>
+        )
+    }
+}
+
+export default MyApp
 
 ```
 
-Usaremos isso para ligar / desligar nossos mocks.
-
-Agora, vamos criar os mocks, criar um arquivo chamado [mock.ts](services/mock.ts), em
-pasta [services](services).
-
+Crie um arquivo no diretório [hooks](hooks), denominado [hooks.ts](hooks/hooks.ts):
 ```typescript jsx
-import MockAdapter from 'axios-mock-adapter'
-import { sampleCustomerData } from '../utils/sample-data'
-import { AxiosInstance } from 'axios'
+import { useMutation, useQuery } from 'react-query'
+import { createCustomer, getCustomers } from '../services/fetch'
 import { ICustomer } from '../interfaces'
+import { UseMutationResult, UseQueryResult } from 'react-query/types/react/types'
+import { queryClient } from '../pages/_app'
+import { AxiosResponse } from 'axios'
 
-export function initMock(axiosIntance: AxiosInstance): void {
-    const mock: MockAdapter = new MockAdapter(axiosIntance, { delayResponse: 2000 })
-    mock.onGet('/customers').reply(200, sampleCustomerData)
-    mock.onPost('/customers/create').reply(function (config) {
-        const data: ICustomer = JSON.parse(config.data)
-        data._id = String(Math.floor(Math.random() * 100 + 6))
-        sampleCustomerData.push(data)
-        return [200, 'response']
+export function useCustomers(): UseQueryResult {
+    return useQuery('customers', getCustomers)
+}
+
+export function useMutationCreateCustomer(): UseMutationResult<
+    AxiosResponse<any>,
+    unknown,
+    ICustomer,
+    unknown
+> {
+    return useMutation('customer', (data: ICustomer) => createCustomer(data), {
+        onSuccess: async () => {
+            await queryClient.clear()
+        },
     })
 }
 
 ```
 
-Finalmente, estamos prontos para criar nossas solicitações de API com Axios,
-crie um arquivo chamado [fetch.ts](services/fetch.ts), em [services](services)
-pasta.
+Agora é hora de testar os endpoints HTTP que criamos, e também os mockups, nós apenas
+precisamos criar um gancho para as funções de busca HTTP dentro de nosso componente, então vá para
+[index.tsx](pages/index.tsx) e adicione o seguinte código:
 
 ```typescript jsx
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios'
+import Link from 'next/link'
+import Layout from '../components/Layout'
+import * as React from 'react'
 import { ICustomer } from '../interfaces'
-import { MOCK_ON } from '../utils/constants'
-import { initMock } from './mock'
+import DataRow from '../components/DataRow'
+import Loading from '../components/Loading'
+import { useCustomers } from '../hooks/hooks'
 
-let axiosInstance: AxiosInstance
+function App(): JSX.Element {
+    const { data } = useCustomers()
+    const rowData: ICustomer[] = data as ICustomer[]
 
-function createAxiosInstanceFactory(axiosRequestConfig: AxiosRequestConfig): AxiosInstance {
-    return axios.create(axiosRequestConfig)
+    return (
+        <Layout>
+            <h1>Next CRUD App</h1>
+
+            <Link href={'/customers/create'}>
+                <a className="createNew">Create New Customer</a>
+            </Link>
+            <div className="table">
+                <h2>Customer Data</h2>
+                <div className="headerRow">
+                    <h4>name</h4>
+                    <h4>telephone</h4>
+                    <h4 className="creditCard">credit card</h4>
+                </div>
+            </div>
+            {data ? (
+                rowData.map((costumer: ICustomer) => <DataRow data={costumer} key={costumer._id} />)
+            ) : (
+                <Loading />
+            )}
+        </Layout>
+    )
 }
 
-export function getAxiosInstance(): AxiosInstance {
-    if (!axiosInstance) {
-        axiosInstance = createAxiosInstanceFactory({
-            baseURL: '/api',
-            timeout: 10000,
-            headers: {
-                Accept: 'application/json',
-                'Content-type': 'application/json',
-            },
-        })
-        if (MOCK_ON) {
-            initMock(axiosInstance)
-        }
-    }
-    return axiosInstance
-}
+export default App
 
-export async function getCustomers(): Promise<ICustomer[]> {
-    const { data } = await getAxiosInstance().get('/customers')
-    return data
-}
+```
 
-export async function createCustomer(customer: ICustomer): Promise<AxiosResponse> {
-    return await getAxiosInstance().post('/customers/create', customer)
+Você deve ter notado que a única linha que mudamos foi esta:
+```typescript jsx
+const { data } = useCustomers()
+
+```
+
+Agora, em vez de obter dados diretamente da amostra que temos, estamos usando o gancho React Query `` `useCustomers ()` ``.
+Claro que o mock vai interceptar isso e recuperar os mesmos dados de amostra,
+mas agora temos todo um fluxo de chamada HTTP pronto.
+
+Antes de executar, lembre-se que na última aula, na configuração HTTP, definimos uma variável booleana,
+para disparar quando queremos usar ```MOCK_ON```, ou não.
+
+Vamos controlar isso como uma variável de ambiente, primeiro crie um arquivo na raiz do seu projeto chamado
+[next.config.js](next.config.js) e adicione o seguinte conteúdo:
+
+```javascript
+module.exports = {
+    env: {
+        REACT_MOCK_ON: process.env.REACT_MOCK_ON
+    },
 }
 
 ```
+
+Este arquivo é para o NextJS reconfigurar as variáveis ​​de ambiente, à medida que as páginas são renderizadas no lado do servidor,
+você precisa disso para permitir que o NextJS saiba que eles existem.
+
+Agora, crie um arquivo chamado [.env](.env), que será onde definiremos as variáveis de ambiente:
+
+```shell
+REACT_MOCK_ON=true
+
+```
+
+
+Lembre-se que este arquivo não pode ser confirmado, ele já está no .gitignore, então se você alterar o branch,
+você precisa criar isso novamente.
+
+Depois disso, execute o projeto e você verá a mágica.
