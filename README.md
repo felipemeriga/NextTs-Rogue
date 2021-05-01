@@ -30,8 +30,8 @@ In order to have our project up and running in a fashion way, we will need the h
 - Class 8 - HTTP Fetch and Mocks
 - Class 9 - React Query
 - Class 10 - Create Customer Hook
-- Class 11 - Single Customer Component and Hook
-- Class 12 - Update and Delete
+- Class 11 - Single Customer Get and Delete Hook
+- Class 12 - Delete and View Customer Component
 - Class 13 - Test Environment
 - Class 14 - MongoDB Connection
 - Class 15 - Creating the First API
