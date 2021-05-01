@@ -12,4 +12,31 @@ export function initMock(axiosIntance: AxiosInstance): void {
         sampleCustomerData.push(data)
         return [200, 'response']
     })
+
+    const url = new RegExp(`customers/*`)
+    mock.onGet(url).reply(function (config) {
+        if (config.url) {
+            const id = config.url.substring(config.url.lastIndexOf('/') + 1)
+
+            const customer: ICustomer | undefined = sampleCustomerData.find(
+                (value: ICustomer) => value._id === id
+            )
+            return [200, customer]
+        } else {
+            return [500, 'response']
+        }
+    })
+
+    mock.onDelete(url).reply(function (config) {
+        if (config.url) {
+            const id = config.url.substring(config.url.lastIndexOf('/') + 1)
+            const index: number = sampleCustomerData.findIndex(
+                (value: ICustomer) => value._id === id
+            )
+            sampleCustomerData.splice(index, 1)
+            return [200, 'response']
+        } else {
+            return [500, 'response']
+        }
+    })
 }

@@ -34,3 +34,12 @@ export async function getCustomers(): Promise<ICustomer[]> {
 export async function createCustomer(customer: ICustomer): Promise<AxiosResponse> {
     return await getAxiosInstance().post('/customers/create', customer)
 }
+
+export async function getCustomer(id: string): Promise<ICustomer> {
+    const { data } = await getAxiosInstance().get(`/customers/${id}`)
+    return data
+}
+
+export async function deleteCustomer(id: string): Promise<AxiosResponse> {
+    return await getAxiosInstance().delete(`/customers/${id}/delete`)
+}

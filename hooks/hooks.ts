@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from 'react-query'
-import { createCustomer, getCustomers } from '../services/fetch'
+import { createCustomer, deleteCustomer, getCustomer, getCustomers } from '../services/fetch'
 import { ICustomer } from '../interfaces'
 import { UseMutationResult, UseQueryResult } from 'react-query/types/react/types'
 import { queryClient } from '../pages/_app'
@@ -20,4 +20,19 @@ export function useMutationCreateCustomer(): UseMutationResult<
             await queryClient.clear()
         },
     })
+}
+
+export function useCustomer(id: string): UseQueryResult {
+    return useQuery(['customer', id], () => getCustomer(id), {
+        enabled: !!id,
+    })
+}
+
+export function useMutationDeleteCustomer(): UseMutationResult<
+    AxiosResponse<any>,
+    unknown,
+    string,
+    unknown
+> {
+    return useMutation('customer', (id: string) => deleteCustomer(id))
 }
