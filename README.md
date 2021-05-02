@@ -32,7 +32,7 @@ In order to have our project up and running in a fashion way, we will need the h
 - Class 10 - Create Customer Hook
 - Class 11 - Single Customer Get and Delete Hook
 - Class 12 - Delete and View Customer Component
-- Class 13 - Test Environment
+- Class 13 - Update Customer Component and Hook
 - Class 14 - MongoDB Connection
 - Class 15 - Creating the First API
 - Class 16 - API Create/Delete/Update
