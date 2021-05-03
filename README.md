@@ -21,7 +21,7 @@ We need to create the following API endpoints:
 - Delete an existing customer
 - Update an existing customer
 
-In this class we will create the API for fetching all the users, and also creating a single user.
+In this class we will create the API for fetching all the customers, and also creating a single customer.
 
 For the first API, that will serve as a GET endpoint, for getting all the customers, first 
 create the following file on [pages/api/customers/index.ts](pages/api/customers/index.ts), and paste the
@@ -45,3 +45,39 @@ async function handler(_req: Request, res: Response): Promise<Response> {
 export default connectDB(handler)
 
 ```
+
+After that create the create customer API, in the file [pages/api/customers/create.ts](pages/api/customers/create.ts),
+with the following code:
+```typescript
+import { Response, Request } from 'express'
+import CustomerModel from '../../../models/customer'
+import connectDB from '../../../midleware/mongodb'
+
+async function Create(req: Request, res: Response): Promise<Response> {
+    try {
+        if (req.method == 'POST') {
+            const { firstName, lastName, telephone, creditCard } = req.body
+            const customerModel = new CustomerModel({
+                firstName: firstName,
+                lastName: lastName,
+                telephone: telephone,
+                creditCard: creditCard,
+            })
+            const createdCustomer = await customerModel.save()
+            return res.status(200).send(createdCustomer)
+        } else {
+            return res.status(422).send('req_method_not_supported')
+        }
+    } catch (error) {
+        return res.status(500).send(error.message)
+    }
+}
+
+export default connectDB(Create)
+
+```
+
+Now, don't forget to turn the environment variable ```REACT_MOCK_ON``` to false, to disable the mocks
+and add the ```MONGODB_URL``` connection string so NextJS will be able to connect to your database, don't forget
+to take a look in the last class how to create the MongoDB database for free, and also set the right permissions and 
+create the proper database, so you won't receive an unauthorized error.
