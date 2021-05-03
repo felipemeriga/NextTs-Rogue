@@ -32,8 +32,8 @@ In order to have our project up and running in a fashion way, we will need the h
 - Class 10 - Create Customer Hook
 - Class 11 - Single Customer Get and Delete Hook
 - Class 12 - Delete and View Customer Component
-- Class 13 - Update Customer Component
-  Class 14 - Update Customer Hook
+- Class 13 - Update Customer Component 
+- Class 14 - Update Customer Hook
 - Class 15 - MongoDB Connection
 - Class 16 - Creating the First API
 - Class 17 - API Create/Delete/Update
