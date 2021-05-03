@@ -1,23 +1,21 @@
 import React, { useState } from 'react'
 import Layout from '../../components/Layout'
 import { ICustomer } from '../../interfaces'
-import { useForm } from 'react-hook-form'
 import { useMutationCreateCustomer } from '../../hooks/hooks'
 import { useRouter } from 'next/router'
 import Loading from '../../components/Loading'
+import Form from '../../components/Form'
 
 function Create(): JSX.Element {
     const [errorMessage, setErrorMessage] = useState<string>('')
     const router = useRouter()
 
-    const { handleSubmit, register, errors } = useForm<ICustomer>()
-
     const { error, isError, isLoading, isSuccess, mutate, reset } = useMutationCreateCustomer()
 
-    const onSubmit = handleSubmit(async (formData: ICustomer) => {
+    const onSubmitCallback = (formData: ICustomer) => {
         if (errorMessage) setErrorMessage('')
         mutate(formData)
-    })
+    }
 
     const timeoutError = () => {
         setTimeout(() => setErrorMessage(''), 4000)
@@ -41,73 +39,7 @@ function Create(): JSX.Element {
                 <Loading />
             ) : (
                 <div>
-                    <form onSubmit={onSubmit}>
-                        <div>
-                            <label>First Name</label>
-                            <input
-                                type="text"
-                                name="firstName"
-                                placeholder="e.g. John"
-                                ref={register({ required: 'First Name is required' })}
-                            />
-                            {errors.firstName && (
-                                <span role="alert" className="error">
-                                    {errors.firstName.message}
-                                </span>
-                            )}
-                        </div>
-
-                        <div>
-                            <label>Last Name</label>
-                            <input
-                                type="text"
-                                name="lastName"
-                                placeholder="e.g. Doe"
-                                ref={register({ required: 'Last Name is required' })}
-                            />
-                            {errors.lastName && (
-                                <span role="alert" className="error">
-                                    {errors.lastName.message}
-                                </span>
-                            )}
-                        </div>
-
-                        <div>
-                            <label>Telephone</label>
-                            <input
-                                type="text"
-                                name="telephone"
-                                placeholder="e.g. 123-456-7890"
-                                ref={register}
-                            />
-                            {errors.telephone && (
-                                <span role="alert" className="error">
-                                    {errors.telephone.message}
-                                </span>
-                            )}
-                        </div>
-
-                        <div>
-                            <label>Credit Card Number</label>
-                            <input
-                                type="text"
-                                name="creditCard"
-                                placeholder="e.g. 1234567890123456"
-                                ref={register}
-                            />
-                            {errors.creditCard && (
-                                <span role="alert" className="error">
-                                    {errors.creditCard.message}
-                                </span>
-                            )}
-                        </div>
-
-                        <div className="submit">
-                            <button type="submit" className="submitButton">
-                                Create
-                            </button>
-                        </div>
-                    </form>
+                    <Form defaultValues={null} submitFormCallback={onSubmitCallback} />
                     {errorMessage && (
                         <p role="alert" className="errorMessage">
                             {errorMessage}
