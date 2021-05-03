@@ -1,38 +1,21 @@
-# Aula 18 - Criando API de Atualizar Customer
+# Aula 19 - Implantando na Vercel
 
-Agora é hora de criar nossa última API! Então, crie um arquivo no
-diretório [pages/api/customers/[id]/update.ts](pages/api/customers/[id]/update.ts):
-```typescript
-import { Response, Request } from 'express'
-import CustomerModel from '../../../../models/customer'
-import connectDB from '../../../../midleware/mongodb'
+Finalmente, terminamos a codificação, mas a parte mais importante é agora, é
+implantando nosso aplicativo para Vercel.
 
-async function Update(req: Request, res: Response): Promise<Response> {
-    try {
-        if (req.method == 'PUT') {
-            const { firstName, lastName, telephone, creditCard } = req.body
-            const {
-                query: { id },
-            } = req
-            await CustomerModel.findByIdAndUpdate(id, {
-                firstName: firstName,
-                lastName: lastName,
-                telephone: telephone,
-                creditCard: creditCard,
-            })
-            return res.status(200).send('OK')
-        } else {
-            return res.status(422).send('req_method_not_supported')
-        }
-    } catch (error) {
-        return res.status(500).send(error.message)
-    }
-}
+Vercel é o criador do NextJS, e também a plataforma sem servidor que seremos
+capaz de implantar o aplicativo.
 
-export default connectDB(Update)
+Você só precisa ir para https://vercel.com/
+e você poderá fazer o login com sua conta do github, e
+selecione um repo para criar um projeto e implantar sua infraestrutura.
 
-```
+Quando você cria um projeto no Vercel, basicamente você pode selecionar o repositório onde o NextJS
+projeto é localizado, e então o Vercel fará tudo para você, a única coisa que você precisa fazer é configurar
+as variáveis ​​de ambiente, como você não pode enviar o arquivo .env para o repo, você precisa configurar novamente
+as variáveis ​​de ambiente, portanto, configure-o no Vercel, lembre-se de definir ```REACT_MOCK_ON``` para falso,
+porque não queremos implantar o mock, e preencher ```MONGODB_URL``` com sua conexão de string de banco de dados.
 
+Você também pode configurar domínios para seu aplicativo, se desejar.
 
-Este era o único trecho de código de que precisávamos, e agora nosso aplicativo está terminado ,
-finalmente seremos capazes de implantá-lo!
+Para saber mais sobre a configuração do Vercel, basta assistir a aula gravada.
