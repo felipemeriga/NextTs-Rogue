@@ -29,7 +29,7 @@ export function initMock(axiosIntance: AxiosInstance): void {
 
     mock.onDelete(url).reply(function (config) {
         if (config.url) {
-            const id = config.url.substring(config.url.lastIndexOf('/') + 1)
+            const id = String(config.url.match(/\d/g))
             const index: number = sampleCustomerData.findIndex(
                 (value: ICustomer) => value._id === id
             )

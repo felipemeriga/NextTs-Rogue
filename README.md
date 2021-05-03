@@ -1,41 +1,24 @@
-# Class 16 - Creating the First API
+# Class 17 - API Get/Delete Customer
 
 ### [SWITCH TO PORTUGUESE VERSION](./PT.md)
 
-Like we discussed in the first classes of the course, React is a
-frontend Javascript/Typescript framework, and doesn't have the capability of 
-creating webservers or something like this, which means that if you are using plain
-React as your frontend framework, you would need a backend written in some another framework, and
-programming language.
+Let's now create an API for querying a specific customer from the database, from
+our API.
 
-The good thing about NextJS, is that we can also create the API part with that, and as NextJS it's
-meant to run in a serverless environment, which means, without any server, like the automatic capability 
-that NextJS has to create pages when you create files inside [pages](pages) folder, it also has the 
-capability of creating APIs too, you just need to create a folder called api, inside [pages](pages) directory, that
-any file that you place there will be treated in the same way pages are, but this time, as an API endpoint.
-
-We need to create the following API endpoints:
-- Get all the customers saved in the database
-- Get one single customer
-- Create a new customer
-- Delete an existing customer
-- Update an existing customer
-
-In this class we will create the API for fetching all the customers, and also creating a single customer.
-
-For the first API, that will serve as a GET endpoint, for getting all the customers, first 
-create the following file on [pages/api/customers/index.ts](pages/api/customers/index.ts), and paste the
-following piece of code:
-
+In same way we've created the pages, create a file under the directory
+[/pages/api/customers/[id]/index.ts](/pages/api/customers/[id]/index.ts), and place the following content in that:
 ```typescript
-import connectDB from '../../../midleware/mongodb'
-import { ICustomer } from '../../../interfaces'
-import { Response, Request } from 'express'
-import CustomerModel from '../../../models/customer'
+import { Request, Response } from 'express'
+import { ICustomer } from '../../../../interfaces'
+import CustomerModel from '../../../../models/customer'
+import connectDB from '../../../../midleware/mongodb'
 
-async function handler(_req: Request, res: Response): Promise<Response> {
+async function handler(req: Request, res: Response): Promise<Response> {
     try {
-        const queryResult: ICustomer[] = await CustomerModel.find({})
+        const {
+            query: { id },
+        } = req
+        const queryResult: ICustomer | null = await CustomerModel.findById(id)
         return res.status(200).send(queryResult)
     } catch (error) {
         return res.status(500).send(error.message)
@@ -46,25 +29,37 @@ export default connectDB(handler)
 
 ```
 
-After that create the create customer API, in the file [pages/api/customers/create.ts](pages/api/customers/create.ts),
-with the following code:
+Before doing the delete API, let's do some refactoring in the code, by default NextJS,
+will follow the directory structure as the HTTP path for sending the DELETE request, so in localhost
+for example, a proper delete request URL to the API serve, would be:
+```
+http://localhost:3000/api/customers/[id]/delete
+```
+
+So we need to change this on [services/fetch.ts](services/fetch.ts), so replace the ```deleteCustomer``` method of that
+file, for this one:
+```typescript
+export async function deleteCustomer(id: string): Promise<AxiosResponse> {
+    return await getAxiosInstance().delete(`/customers/${id}/delete`)
+}
+
+```
+
+Now we are ready to create the delete API, create it on the following directory,
+[pages/api/customers/[id]/delete](pages/api/customers/[id]/delete), and paste this code:
 ```typescript
 import { Response, Request } from 'express'
-import CustomerModel from '../../../models/customer'
-import connectDB from '../../../midleware/mongodb'
+import CustomerModel from '../../../../models/customer'
+import connectDB from '../../../../midleware/mongodb'
 
-async function Create(req: Request, res: Response): Promise<Response> {
+async function Delete(req: Request, res: Response): Promise<Response> {
     try {
-        if (req.method == 'POST') {
-            const { firstName, lastName, telephone, creditCard } = req.body
-            const customerModel = new CustomerModel({
-                firstName: firstName,
-                lastName: lastName,
-                telephone: telephone,
-                creditCard: creditCard,
-            })
-            const createdCustomer = await customerModel.save()
-            return res.status(200).send(createdCustomer)
+        if (req.method == 'DELETE') {
+            const {
+                query: { id },
+            } = req
+            await CustomerModel.findByIdAndDelete(id)
+            return res.status(200).send('OK')
         } else {
             return res.status(422).send('req_method_not_supported')
         }
@@ -73,11 +68,26 @@ async function Create(req: Request, res: Response): Promise<Response> {
     }
 }
 
-export default connectDB(Create)
+export default connectDB(Delete)
 
 ```
 
-Now, don't forget to turn the environment variable ```REACT_MOCK_ON``` to false, to disable the mocks
-and add the ```MONGODB_URL``` connection string so NextJS will be able to connect to your database, don't forget
-to take a look in the last class how to create the MongoDB database for free, and also set the right permissions and 
-create the proper database, so you won't receive an unauthorized error.
+Finally, there is still one thing that we need to refactor, which is our mock, as we have changed
+the endpoint for the DELETE request, let's fix our mock intercept DELETE function.
+
+In [services/mock.ts](services/mock.ts), replace the delete part to this one:
+```typescript
+    mock.onDelete(url).reply(function (config) {
+        if (config.url) {
+            const id = String(config.url.match(/\d/g))
+            const index: number = sampleCustomerData.findIndex(
+                (value: ICustomer) => value._id === id
+            )
+            sampleCustomerData.splice(index, 1)
+            return [200, 'response']
+        } else {
+            return [500, 'response']
+        }
+    })
+
+```
