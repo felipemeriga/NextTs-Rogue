@@ -43,3 +43,7 @@ export async function getCustomer(id: string): Promise<ICustomer> {
 export async function deleteCustomer(id: string): Promise<AxiosResponse> {
     return await getAxiosInstance().delete(`/customers/${id}`)
 }
+
+export async function updateCustomer(customer: ICustomer): Promise<ICustomer> {
+    return await getAxiosInstance().put(`/customers/${customer._id}/update`, customer)
+}

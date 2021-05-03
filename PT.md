@@ -1,180 +1,59 @@
-# Aula 13 - Componente para Atualizar Customer
+# Aula 14 - Criar Hook para Atualizar
 
-
-Hoje vamos criar um dos últimos componentes do nosso aplicativo,
-mas como o formulário para editar um cliente é o mesmo formulário para criar, iremos refatorar este
-formulário para um único componente, usando os recursos de composição do React, podemos
-tem um único componente para a página de criação e atualização.
-
-Primeiro, crie um arquivo chamado [Form.tsx](components/Form.tsx), na pasta
-[componentes](componentes).
+Agora que já temos o componente de atualização do cliente, o único
+o que resta são os hooks e a função HTTP fetch, primeiro vamos criar uma PUT
+HTTP request, em [services/fetch.ts](services/fetch.ts), adicione este método a seguir em
+o arquivo que já existe em seu projeto:
 
 ```typescript jsx
-import { useForm } from 'react-hook-form'
-import { ICustomer } from '../interfaces'
-import React from 'react'
-
-interface IProps {
-    submitFormCallback: (submitForm: ICustomer) => void
-    defaultValues: ICustomer | null
+export async function updateCustomer(customer: ICustomer): Promise<ICustomer> {
+    return await getAxiosInstance().put(`/customers/${customer._id}/update`, customer)
 }
-
-function Form(props: IProps): JSX.Element {
-    const { submitFormCallback, defaultValues } = props
-
-    const { handleSubmit, register, errors } = useForm({
-        defaultValues: {
-            ...defaultValues,
-        },
-    })
-
-    const onSubmitForm = handleSubmit(async (formData: ICustomer) => {
-        submitFormCallback(formData)
-    })
-
-    return (
-        <form onSubmit={onSubmitForm}>
-            <div>
-                <label>First Name</label>
-                <input
-                    type="text"
-                    name="firstName"
-                    placeholder="e.g. John"
-                    ref={register({ required: 'First Name is required' })}
-                />
-                {errors.firstName && (
-                    <span role="alert" className="error">
-                        {errors.firstName.message}
-                    </span>
-                )}
-            </div>
-
-            <div>
-                <label>Last Name</label>
-                <input
-                    type="text"
-                    name="lastName"
-                    placeholder="e.g. Doe"
-                    ref={register({ required: 'Last Name is required' })}
-                />
-                {errors.lastName && (
-                    <span role="alert" className="error">
-                        {errors.lastName.message}
-                    </span>
-                )}
-            </div>
-
-            <div>
-                <label>Telephone</label>
-                <input
-                    type="text"
-                    name="telephone"
-                    placeholder="e.g. 123-456-7890"
-                    ref={register}
-                />
-                {errors.telephone && (
-                    <span role="alert" className="error">
-                        {errors.telephone.message}
-                    </span>
-                )}
-            </div>
-
-            <div>
-                <label>Credit Card Number</label>
-                <input
-                    type="text"
-                    name="creditCard"
-                    placeholder="e.g. 1234567890123456"
-                    ref={register}
-                />
-                {errors.creditCard && (
-                    <span role="alert" className="error">
-                        {errors.creditCard.message}
-                    </span>
-                )}
-            </div>
-
-            <div className="submit">
-                <button type="submit" className="submitButton">
-                    {defaultValues == null ? 'Create' : 'Edit'}
-                </button>
-            </div>
-        </form>
-    )
-}
-
-export default Form
 
 ```
 
-Este componente Form será usado na página de criação e atualização, então agora,
-vá para [pages/customers/create.tsx](pages/customers/create.tsx) e refatore-o
-adicionando o novo componente de formulário.
-
+Então, no arquivo [hooks/hooks.ts](hooks/hooks.ts), adicione a seguinte função ao
+código existente:
 ```typescript jsx
-import React, { useState } from 'react'
-import Layout from '../../components/Layout'
-import { ICustomer } from '../../interfaces'
-import { useMutationCreateCustomer } from '../../hooks/hooks'
-import { useRouter } from 'next/router'
-import Loading from '../../components/Loading'
-import Form from '../../components/Form'
-
-function Create(): JSX.Element {
-    const [errorMessage, setErrorMessage] = useState<string>('')
-    const router = useRouter()
-
-    const { error, isError, isLoading, isSuccess, mutate, reset } = useMutationCreateCustomer()
-
-    const onSubmitCallback = (formData: ICustomer) => {
-        if (errorMessage) setErrorMessage('')
-        mutate(formData)
-    }
-
-    const timeoutError = () => {
-        setTimeout(() => setErrorMessage(''), 4000)
-    }
-
-    if (isSuccess) {
-        router.push('/')
-    }
-
-    if (isError) {
-        reset()
-        setErrorMessage((error as any).message)
-        timeoutError()
-    }
-
-    return (
-        <Layout>
-            <h1>Create Customer</h1>
-
-            {isLoading ? (
-                <Loading />
-            ) : (
-                <div>
-                    <Form defaultValues={null} submitFormCallback={onSubmitCallback} />
-                    {errorMessage && (
-                        <p role="alert" className="errorMessage">
-                            {errorMessage}
-                        </p>
-                    )}
-                </div>
-            )}
-        </Layout>
-    )
+export function useMutationUpdateCustomer(): UseMutationResult<
+    ICustomer,
+    unknown,
+    ICustomer,
+    unknown
+> {
+    return useMutation('customer', (data: ICustomer) => updateCustomer(data))
 }
-
-export default Create
 
 ```
 
-Finalmente, vamos criar o componente de atualização, criá-lo como [pages/customers/[id]/update.tsx](pages/customers/[id]/update.tsx)
 
+Além disso, vamos criar o hook para interceptar a solicitação PUT HTTP, portanto, no
+arquivo [services/mock.ts](services/mock.ts), adicione esta parte ao código existente:
+```typescript jsx
+mock.onPut(url).reply(function (config) {
+    if (config.url) {
+        const id = String(config.url.match(/\d/g))
+
+        const index: number | undefined = sampleCustomerData.findIndex(
+            (value: ICustomer) => value._id === id
+        )
+        const data: ICustomer = JSON.parse(config.data)
+        data._id = id
+        sampleCustomerData[index] = data
+        return [200, data]
+    } else {
+        return [500, 'response']
+    }
+})
+
+```
+
+Agora, que temos o hook e o método HTTP, a página de atualização inteira [/pages/customers/[id]/update.tsx](/pages/customers/[id]/update.tsx),
+será como:
 ```typescript jsx
 import Layout from '../../../components/Layout'
 import { useRouter } from 'next/router'
-import { useCustomer } from '../../../hooks/hooks'
+import { useCustomer, useMutationUpdateCustomer } from '../../../hooks/hooks'
 import { ICustomer } from '../../../interfaces'
 import React, { useState } from 'react'
 import Loading from '../../../components/Loading'
@@ -182,6 +61,7 @@ import Form from '../../../components/Form'
 
 function Update(): JSX.Element {
     const [errorMessage, setErrorMessage] = useState('')
+    const mutation = useMutationUpdateCustomer()
 
     const router = useRouter()
     const { id } = router.query
@@ -194,6 +74,15 @@ function Update(): JSX.Element {
     const onSubmitCallback = (formData: ICustomer) => {
         if (errorMessage) setErrorMessage('')
         formData._id = String(id)
+        mutation.mutate(formData)
+    }
+
+    if (mutation.error) {
+        setErrorMessage('Error updating the user')
+    }
+
+    if (mutation.isSuccess) {
+        router.push('/')
     }
 
     return (

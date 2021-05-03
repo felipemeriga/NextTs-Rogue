@@ -1,6 +1,6 @@
 import Layout from '../../../components/Layout'
 import { useRouter } from 'next/router'
-import { useCustomer } from '../../../hooks/hooks'
+import { useCustomer, useMutationUpdateCustomer } from '../../../hooks/hooks'
 import { ICustomer } from '../../../interfaces'
 import React, { useState } from 'react'
 import Loading from '../../../components/Loading'
@@ -8,6 +8,7 @@ import Form from '../../../components/Form'
 
 function Update(): JSX.Element {
     const [errorMessage, setErrorMessage] = useState('')
+    const mutation = useMutationUpdateCustomer()
 
     const router = useRouter()
     const { id } = router.query
@@ -20,6 +21,15 @@ function Update(): JSX.Element {
     const onSubmitCallback = (formData: ICustomer) => {
         if (errorMessage) setErrorMessage('')
         formData._id = String(id)
+        mutation.mutate(formData)
+    }
+
+    if (mutation.error) {
+        setErrorMessage('Error updating the user')
+    }
+
+    if (mutation.isSuccess) {
+        router.push('/')
     }
 
     return (

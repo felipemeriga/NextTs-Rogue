@@ -39,4 +39,20 @@ export function initMock(axiosIntance: AxiosInstance): void {
             return [500, 'response']
         }
     })
+
+    mock.onPut(url).reply(function (config) {
+        if (config.url) {
+            const id = String(config.url.match(/\d/g))
+
+            const index: number | undefined = sampleCustomerData.findIndex(
+                (value: ICustomer) => value._id === id
+            )
+            const data: ICustomer = JSON.parse(config.data)
+            data._id = id
+            sampleCustomerData[index] = data
+            return [200, data]
+        } else {
+            return [500, 'response']
+        }
+    })
 }

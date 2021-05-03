@@ -1,5 +1,11 @@
 import { useMutation, useQuery } from 'react-query'
-import { createCustomer, deleteCustomer, getCustomer, getCustomers } from '../services/fetch'
+import {
+    createCustomer,
+    deleteCustomer,
+    getCustomer,
+    getCustomers,
+    updateCustomer,
+} from '../services/fetch'
 import { ICustomer } from '../interfaces'
 import { UseMutationResult, UseQueryResult } from 'react-query/types/react/types'
 import { queryClient } from '../pages/_app'
@@ -35,4 +41,13 @@ export function useMutationDeleteCustomer(): UseMutationResult<
     unknown
 > {
     return useMutation('customer', (id: string) => deleteCustomer(id))
+}
+
+export function useMutationUpdateCustomer(): UseMutationResult<
+    ICustomer,
+    unknown,
+    ICustomer,
+    unknown
+> {
+    return useMutation('customer', (data: ICustomer) => updateCustomer(data))
 }
