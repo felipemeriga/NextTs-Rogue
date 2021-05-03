@@ -36,7 +36,8 @@ In order to have our project up and running in a fashion way, we will need the h
 - Class 14 - Update Customer Hook
 - Class 15 - MongoDB Connection
 - Class 16 - Creating the First API
-- Class 17 - API Create/Delete/Update
-- Class 18 - Deploying the Application on Vercel
-- Class 19 - CI/CD Pipeline
-- Class 20 - Last Steps
+- Class 17 - API Get/Delete Customer
+- Class 18 - API Update Customer
+- Class 19 - Deploying the Application on Vercel
+- Class 20 - CI/CD Pipeline
+- Class 21 - Last Steps
