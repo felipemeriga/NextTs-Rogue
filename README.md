@@ -1,4 +1,6 @@
-# Course React-NextJS-Typescript
+# NextTS Rogue - The Typescript/Next/React Course
+
+![nextts](./img/logo.png)
 
 ## Introduction
 
