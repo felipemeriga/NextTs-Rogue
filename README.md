@@ -4,11 +4,18 @@
 
 ## Introduction
 
-Hello Everyone! This repo is dedicated to React-NextJS-Typescript course, here you can find all the codebase that will be used in each of the classes, also this master branch latest version, it's totally functional, and you can run the entire application from it, locally or deploying it with Vercel, which is one of the another topics covered in the course.
+Hello Everyone! This repo is dedicated to NextTS Rogue - The Typescript/Next/React Course, here you can find all the codebase that will be used in each of the classes, also this master branch latest version, it's totally functional, and you can run the entire application from it, locally or deploying it with Vercel, which is one of the another topics covered in the course.
 
-This application, it's a CRUD(Create/Update/Delete) of users and their credit cards, where we could visualise all the users created, create a new one, modify an existing one or either delete some.
+This application, it's a CRUD(Create/Update/Delete) of customers and their credit cards, where we could visualise all the users created, create a new one, modify an existing one or either delete some.
 
 It's built on the top of [NextJS framework](https://nextjs.org/), and the programming language that is used it's Typescript, which is a superset of Javascript.
+
+The aim of the course it's to teach the basic concepts about NextJS, as well as Typescript and React. In the last classes of the course, we will have an entire UI application,
+with an API, MongoDB database, up and running, deployed to Vercel!
+
+Check out the Classes catalog bellow, all the classes are uploaded to YouTube, you can find the link for each of them here, and
+the code for each of the classes are separated by branches, which means that each class has a branch, where you can check the 
+code of this specific class.
 
 ## Dependencies
 
