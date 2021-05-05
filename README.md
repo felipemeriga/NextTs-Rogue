@@ -24,6 +24,7 @@ pasted contents, are explained in the video class):
     box-sizing: border-box;
 }
 body {
+    background-color: honeydew;
     margin: 0;
     color: #333;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,

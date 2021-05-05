@@ -23,6 +23,7 @@ conteúdos colados, são explicados na aula de vídeo):
     box-sizing: border-box;
 }
 body {
+    background-color: honeydew;
     margin: 0;
     color: #333;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
