@@ -5,6 +5,7 @@
 ## Running the Last Example
 
 Run your application, using the command:
+
 ```shell
 npm run dev
 ```
@@ -28,7 +29,7 @@ function Layout({ children }: Props): JSX.Element {
             </Head>
 
             <main>
-                <div className="container">{children}</div>
+                <div>{children}</div>
             </main>
         </>
     )

@@ -1,7 +1,7 @@
 import React from 'react'
 import Layout from '../components/Layout'
 
-const Index: React.FunctionComponent = () => {
+const Index: React.FunctionComponent = (): JSX.Element => {
     return (
         <Layout>
             <div title="Home">

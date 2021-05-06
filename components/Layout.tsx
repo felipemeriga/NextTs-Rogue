@@ -3,7 +3,6 @@ import Head from 'next/head'
 
 type Props = {
     children?: ReactNode
-    title?: string
 }
 
 function Layout({ children }: Props): JSX.Element {
@@ -14,7 +13,7 @@ function Layout({ children }: Props): JSX.Element {
             </Head>
 
             <main>
-                <div className="container">{children}</div>
+                <div>{children}</div>
             </main>
         </>
     )
