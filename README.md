@@ -179,6 +179,12 @@ form.
 
 ```css
 
+.loading {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+}
+
 form {
     background-color: #eee;
     border-radius: 4px;
